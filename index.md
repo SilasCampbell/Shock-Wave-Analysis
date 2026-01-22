@@ -15,3 +15,11 @@ $$
 - Numerical method + results
 - Reproducibility instructions
 
+## What’s here
+
+- [Model PDE](/pde-model/)
+- [Theoretical analysis](/theory/)
+- [Numerical method](/numerics/)
+- [Numerical results](/results/)
+
+
