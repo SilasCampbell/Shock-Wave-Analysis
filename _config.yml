@@ -1,0 +1,16 @@
+title: "Shock Wave Analysis"
+description: "PDE model, theoretical analysis, and numerical demonstration"
+remote_theme: "mmistakes/minimal-mistakes"
+
+plugins:
+  - jekyll-include-cache
+
+markdown: kramdown
+mathjax: true
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: single
+
