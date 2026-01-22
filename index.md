@@ -1,5 +1,7 @@
 ---
 title: Abstract
+layout: single
+mathjax: true
 ---
 
 We study a prototypical shock-wave PDE and compare analytical predictions with numerical experiments.
