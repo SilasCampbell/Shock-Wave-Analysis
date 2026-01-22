@@ -7,7 +7,9 @@ mathjax: true
 We study a prototypical shock-wave PDE and compare analytical predictions with numerical experiments.
 
 ## Governing equation
-$$u_t + f(u)_x = 0$$
+$$
+u_t + f(u)_x = 0
+$$
 
 ## What’s here
 - Model PDE
