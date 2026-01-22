@@ -1,0 +1,12 @@
+main:
+  - title: "Abstract"
+    url: /
+  - title: "Model PDE"
+    url: /pde-model/
+  - title: "Theory"
+    url: /theory/
+  - title: "Numerics"
+    url: /numerics/
+  - title: "Results"
+    url: /results/
+
