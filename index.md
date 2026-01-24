@@ -14,6 +14,10 @@ Burger's Equation (Inviscid):
 
 $$u_t + u \cdot u_x = 0$$
 
+Cauchy Data:
+
+$$f(x) = 1 + \frac{1}{2}\sin(x)$$
+
 ## What’s here
 - Model PDE
 - Theoretical analysis
