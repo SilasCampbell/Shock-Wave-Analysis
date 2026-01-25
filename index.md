@@ -24,8 +24,7 @@ $$f(x) = 1 + \frac{1}{2}\sin(x)$$
 
 $$\frac{du}{dt} = \frac{\partial u}{\partial t} + \frac{dx}{dt}\frac{\partial u}{\partial x}$$
 
-We set the path $\frac{dx}{dt} = u$. Comparing this to Burger's Equation, we can conclude that the velocity along this path must be constant: $\frac{du}{dt} = 0$
-By choosing the path $\frac{dx}{dt} = u$, we force the total derivative $\frac{du}{dt}$ to be equal to 0, making $u$ invariant along the characteristic curve. This reduces the PDE into a pair of ODE's.
+We set the path $\frac{dx}{dt} = u$. By choosing the path $\frac{dx}{dt} = u$, we force the total derivative $\frac{du}{dt}$ to be equal to 0, making $u$ invariant along the characteristic curve. This reduces the PDE into a pair of ODE's.
 
 ## Solving the Characteristic Equations
 
@@ -34,11 +33,14 @@ The system of ODE's derived from the Method of Characteristics is:
 - $\frac{du}{dt} = 0$ (the velocity ODE)
 - $\frac{dx}{dt} = u$ (the path ODE)
 
-By integrating the velocity ODE, we find that $u$ remains constant along the characteristic curve and it's value is determined by its initial value at the starting position $\xi$:
+Integrating the velocity ODE, we find that $u$ remains constant along the characteristic curve and it's value is determined by its initial value at the starting position $\xi$:
 
 $$u(x,t) = f(\xi)$$
 
+Substituting in this equality and integrating the path ODE, we get
 
+$$\frac{dx}{dt} = f(\xi)$$
+$$x(t) = f(\xi)t + \xi$$
 
 
 
