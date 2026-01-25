@@ -34,9 +34,9 @@ The system of ODE's derived from the Method of Characteristics is:
 - $\frac{du}{dt} = 0$ (the velocity ODE)
 - $\frac{dx}{dt} = u$ (the path ODE)
 
-By integrating the velocity ODE, we find that $u$ remains constant along the characteristic curve and it's value is determined by its initial value at the starting position $xi$:
+By integrating the velocity ODE, we find that $u$ remains constant along the characteristic curve and it's value is determined by its initial value at the starting position $\xi$:
 
-$$u(x,t) = f(xi)$$
+$$u(x,t) = f(\xi)$$
 
 
 
