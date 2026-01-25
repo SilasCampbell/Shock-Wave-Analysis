@@ -16,7 +16,7 @@ We study a prototypical shock-wave PDE and compare analytical predictions with n
 
 ## Setup
 
-Burger's Equation (Inviscid):
+Burgers' Equation (Inviscid):
 
 $$u_t + u \cdot u_x = 0$$
 
@@ -45,11 +45,24 @@ Integrating the velocity ODE, we find that $u$ remains constant along the charac
 
 $$u(x,t) = f(\xi)$$
 
-Substituting in this equality and integrating the path ODE, we get:
+Substituting in this consistency condition and integrating the path ODE, we get:
 
 $$\frac{dx}{dt} = f(\xi)$$
 $$x(t) = f(\xi)t + \xi$$
 
+From the equation above, we know $x(t)$ is linear.
+
+## Implicit Solution
+
+Starting with the formula $x(t) = f(\xi)t + \xi$, we can rearrange to solve for $\xi$:
+
+$$\xi = x - ut$$
+
+Substituting this into the consistency condition, we get the implicit solution of Burgers' Equation:
+
+$$u(x,t) = f(\xi)$$
+$$u(x,t) = f(x -ut)$$
+$$u(x,t) = 1 + \frac{1}{2}sin(x - ut)$$
 
 
 
