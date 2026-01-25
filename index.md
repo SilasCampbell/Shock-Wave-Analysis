@@ -6,6 +6,12 @@ mathjax: true
 
 We study a prototypical shock-wave PDE and compare analytical predictions with numerical experiments.
 
+## What’s here
+- Model PDE
+- Theoretical analysis
+- Numerical method + results
+- Reproducibility instructions
+
 # Model PDE
 
 ## Setup
@@ -20,7 +26,9 @@ $$f(x) = 1 + \frac{1}{2}\sin(x)$$
 
 ## The Method of Characteristics
 
-# Total Derivative:
+
+
+Total Derivative:
 
 $$\frac{du}{dt} = \frac{\partial u}{\partial t} + \frac{dx}{dt}\frac{\partial u}{\partial x}$$
 
@@ -37,18 +45,13 @@ Integrating the velocity ODE, we find that $u$ remains constant along the charac
 
 $$u(x,t) = f(\xi)$$
 
-Substituting in this equality and integrating the path ODE, we get
+Substituting in this equality and integrating the path ODE, we get:
 
 $$\frac{dx}{dt} = f(\xi)$$
 $$x(t) = f(\xi)t + \xi$$
 
 
 
-## What’s here
-- Model PDE
-- Theoretical analysis
-- Numerical method + results
-- Reproducibility instructions
 
 
 
