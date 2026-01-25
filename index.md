@@ -24,14 +24,13 @@ $$\frac{du}{dt} = \frac{\partial u}{\partial t} + \frac{dx}{dt}\frac{\partial u}
 
 We set the path $\frac{dx}{dt} = u$. Comparing this to Burger's Equation, we can conclude that the velocity along this path must be constant: $\frac{du}{dt} = 0$
 
-By choosing the path $\frac{dx}{dt} = u$, u is invarient along the characteristic curve. This reduced the PDE into a pair of ODE's.
+By choosing the path $\frac{dx}{dt} = u$, we force the total derivative $\frac{du}{dt}$ to be equal to 0, making $u$ invarient along the characteristic curve. This reduced the PDE into a pair of ODE's.
 
 The resulting characteristic system is:
-\begin{enumerate}
-    \item $\frac{dx}{dt} = u$ (The path equation)
-    \item $\frac{du}{dt} = 0$ (The consistency condition)
-\end{enumerate}
-
+\being{itemize}
+    $\frac{dx}{dt} = u$ (The path equation)
+    $\frac{du}{dt} = 0$ (The consistency condition)
+\end{itemize}
 
 
 ## What’s here
