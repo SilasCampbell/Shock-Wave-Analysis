@@ -91,3 +91,19 @@ $$u_x = \frac{f'(x - ut)}{1 + tf'(x - ut)}$$
 
 $$u_x = \frac{f'(\xi)}{1 + tf'(\xi)}$$
 
+$$u_x = \frac{\frac{1}{2}cos(\xi)}{1 + \frac{1}{2}tcos(\xi)}
+
+At time $t^*$, when $1 + \frac{1}{2}tcos(\xi) = 0$, $u_x$ becomes infinite and a shock forms. Solving for $t^*$, we first solve for $t$ and then find the infimum of $t$:
+
+$$t = \frac{-2}{cos(\xi)$$
+
+When $\xi = \pi$, cosine is at its most negative, and $t$ is minimized:
+
+$$t^* = \frac{-2}{cos(\pi)}$$
+
+$$t^* = 2$$
+
+
+
+
+
