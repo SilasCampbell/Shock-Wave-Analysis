@@ -48,6 +48,7 @@ $$u(x,t) = f(\xi)$$
 By integrating this consistency condition $\frac{du}{dt} = 0$, we establish the characteristic identity $u(x,t) = f(\xi)$. Substituting this characteristic identity into the path ODE and integrating, we get:
 
 $$\frac{dx}{dt} = f(\xi)$$
+
 $$x(t) = f(\xi)t + \xi$$
 
 From the equation above, we know $x(t)$ is linear.
@@ -58,14 +59,18 @@ Starting with the formula $x(t) = f(\xi)t + \xi$ and subbing $f(\xi)$ for $u$, w
 
 
 $$x(t) = f(\xi)t + \xi$$
+
 $$x(t) = ut + \xi$$
+
 $$\xi = x - ut$$
 
 
 Substituting this into the characteristic identity, we get the implicit solution of Burgers' Equation:
 
 $$u(x,t) = f(\xi)$$
+
 $$u(x,t) = f(x - ut)$$
+
 $$u(x,t) = 1 + \frac{1}{2}sin(x - ut)$$
 
 Due to this being a trancendental equation, the use of a numeric solver is needed and will be explored in the Numeric Method and Results section of the paper.
@@ -77,8 +82,12 @@ The implicit solution $u(x,t) = f(x - ut)$ remains valid as long as the mapping 
 To calculate the spatial gradient $u_x$, we differentiate the implicit solution of Burgers' Equation and rearrange to solve for $u_x$:
 
 $$u(x,t) = f(x - ut)$$
+
 $$u_x = f'(x - ut)(1-tu_x)$$
+
 $$u_x + tf'(x - ut)u_x = f'(x - ut)$$
+
 $$u_x = \frac{f'(x - ut)}{1 + tf'(x - ut)}$$
+
 $$u_x = \frac{f'(\xi)}{1 + tf'(\xi)}$$
 
