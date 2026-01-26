@@ -73,7 +73,7 @@ $$u(x,t) = f(x - ut)$$
 
 $$u(x,t) = 1 + \frac{1}{2}sin(x - ut)$$
 
-Due to this being a trancendental equation, the use of a numeric solver is needed and will be explored in the Numeric Method and Results section of the paper.
+Due to this being a transcendental equation, the use of a numeric solver is needed and will be explored in the Numeric Method and Results section of the paper.
 
 ## Singularity Analysis
 
@@ -103,7 +103,15 @@ $$t^* = \frac{-2}{cos(\pi)}$$
 
 $$t^* = 2$$
 
+At $t^* = 2$, the particle starting at $\xi = \pi$ becomes the first point in the wave to become vertical, and thus $t^* = 2$ is the Shock Formation Time.
+
+Solving for the Shock Location $x^* $, we substitute $t^* = 2$ and $\xi = \pi$ back into our path equation $x = \xi + f(\xi)t$:
+
+$$x^* = \pi + (1 + 0.5sin(\pi))2$$
 
 
+$$x^* = \pi + 2$$
 
+$$x^* \approx 5.14$$
 
+The shock first appears at $(x,t) = (\pi + 2,2)$.
