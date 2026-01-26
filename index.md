@@ -114,4 +114,6 @@ $$x^* = \pi + 2$$
 
 $$x^* \approx 5.14$$
 
-The shock first appears at $(x,t) = (\pi + 2,2)$.
+The shock first appears at:
+
+$$(x,t) = (\pi + 2,2)$$
