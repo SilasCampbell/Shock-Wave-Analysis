@@ -57,6 +57,7 @@ By integrating this consistency condition $\frac{du}{dt} = 0$, we establish the 
 
 $$
 \frac{dx}{dt} = f(\xi)
+
 x(t) = f(\xi)t + \xi
 $$
 
@@ -69,7 +70,9 @@ Starting with the formula $x(t) = f(\xi)t + \xi$ and subbing $f(\xi)$ for $u$, w
 
 $$
 x(t) = f(\xi)t + \xi
+
 x(t) = ut + \xi
+
 \xi = x - ut
 $$
 
@@ -77,7 +80,9 @@ Substituting this into the characteristic identity, we get the implicit solution
 
 $$
 u(x,t) = f(\xi)
+
 u(x,t) = f(x - ut)
+
 u(x,t) = 1 + \frac{1}{2}sin(x - ut)
 $$
 
@@ -91,9 +96,13 @@ To calculate the spatial gradient $u_x$, we differentiate the implicit solution 
 
 $$
 u(x,t) = f(x - ut)
+
 u_x = f'(x - ut)(1-tu_x)
+
 u_x + tf'(x - ut)u_x = f'(x - ut)
+
 u_x = \frac{f'(x - ut)}{1 + tf'(x - ut)}
+
 u_x = \frac{f'(\xi)}{1 + tf'(\xi)}
 $$
 
