@@ -18,15 +18,11 @@ We study a prototypical shock-wave PDE and compare analytical predictions with n
 
 Burgers' Equation (Inviscid):
 
-$$
-u_t + u \cdot u_x = 0
-$$
+$$u_t + u \cdot u_x = 0$$
 
 Cauchy Data:
 
-$$
-f(x) = 1 + \frac{1}{2}\sin(x)
-$$
+$$f(x) = 1 + \frac{1}{2}\sin(x)$$
 
 ## The Method of Characteristics
 
@@ -34,9 +30,7 @@ $$
 
 Total Derivative:
 
-$$
-\frac{du}{dt} = \frac{\partial u}{\partial t} + \frac{dx}{dt}\frac{\partial u}{\partial x}
-$$
+$$\frac{du}{dt} = \frac{\partial u}{\partial t} + \frac{dx}{dt}\frac{\partial u}{\partial x}$$
 
 We set the path $\frac{dx}{dt} = u$. By choosing the path $\frac{dx}{dt} = u$, we force the total derivative $\frac{du}{dt}$ to be equal to 0, making $u$ invariant along the characteristic curve. This reduces the PDE into a pair of ODE's.
 
@@ -49,17 +43,12 @@ The system of ODE's derived from the Method of Characteristics is:
 
 Integrating the velocity ODE, we find that $u$ remains constant along the characteristic curve and it's value is determined by its initial value at the starting position $\xi$:
 
-$$
-u(x,t) = f(\xi)
-$$
+$$u(x,t) = f(\xi)$$
 
 By integrating this consistency condition $\frac{du}{dt} = 0$, we establish the characteristic identity $u(x,t) = f(\xi)$. Substituting this characteristic identity into the path ODE and integrating, we get:
 
-$$
-\frac{dx}{dt} = f(\xi)
-
-x(t) = f(\xi)t + \xi
-$$
+$$\frac{dx}{dt} = f(\xi)$$
+$$x(t) = f(\xi)t + \xi$$
 
 From the equation above, we know $x(t)$ is linear.
 
@@ -68,23 +57,16 @@ From the equation above, we know $x(t)$ is linear.
 Starting with the formula $x(t) = f(\xi)t + \xi$ and subbing $f(\xi)$ for $u$, we can rearrange to solve for $\xi$:
 
 
-$$
-x(t) = f(\xi)t + \xi
+$$x(t) = f(\xi)t + \xi$$
+$$x(t) = ut + \xi$$
+$$\xi = x - ut$$
 
-x(t) = ut + \xi
-
-\xi = x - ut
-$$
 
 Substituting this into the characteristic identity, we get the implicit solution of Burgers' Equation:
 
-$$
-u(x,t) = f(\xi)
-
-u(x,t) = f(x - ut)
-
-u(x,t) = 1 + \frac{1}{2}sin(x - ut)
-$$
+$$u(x,t) = f(\xi)$$
+$$u(x,t) = f(x - ut)$$
+$$u(x,t) = 1 + \frac{1}{2}sin(x - ut)$$
 
 Due to this being a trancendental equation, the use of a numeric solver is needed and will be explored in the Numeric Method and Results section of the paper.
 
@@ -94,15 +76,9 @@ The implicit solution $u(x,t) = f(x - ut)$ remains valid as long as the mapping 
 
 To calculate the spatial gradient $u_x$, we differentiate the implicit solution of Burgers' Equation and rearrange to solve for $u_x$:
 
-$$
-u(x,t) = f(x - ut)
-
-u_x = f'(x - ut)(1-tu_x)
-
-u_x + tf'(x - ut)u_x = f'(x - ut)
-
-u_x = \frac{f'(x - ut)}{1 + tf'(x - ut)}
-
-u_x = \frac{f'(\xi)}{1 + tf'(\xi)}
-$$
+$$u(x,t) = f(x - ut)$$
+$$u_x = f'(x - ut)(1-tu_x)$$
+$$u_x + tf'(x - ut)u_x = f'(x - ut)$$
+$$u_x = \frac{f'(x - ut)}{1 + tf'(x - ut)}$$
+$$u_x = \frac{f'(\xi)}{1 + tf'(\xi)}$$
 
