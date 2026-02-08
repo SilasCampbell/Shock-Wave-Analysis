@@ -8,7 +8,7 @@ We study a prototypical shock-wave PDE and compare analytical predictions with n
 
 ## What’s here
 - Model PDE
-- Theoretical analysis
+- Weak Solutions
 - Numerical method + results
 - Reproducibility instructions
 
@@ -117,3 +117,8 @@ $$x^* \approx 5.14$$
 The shock first appears at:
 
 $$(x,t) = (\pi + 2,2)$$
+
+After $t^* = 2$, the implicit soltution becomes multivalued, and weak solutions are needed to reconcile this.
+
+#Weak Solutions
+
