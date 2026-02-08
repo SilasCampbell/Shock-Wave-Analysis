@@ -120,5 +120,35 @@ $$(x,t) = (\pi + 2,2)$$
 
 After $t^* = 2$, the implicit soltution becomes multivalued, and weak solutions are needed to reconcile this.
 
-#Weak Solutions
+# Weak Solutions
+
+In Burger's equation, $u_t + u \cdot u_x = 0$, $u_x$ is only valid before $t^* = 2$. Because of this, the first thing we will do is put Burger's equation in its conservative form:
+
+$$\frac{\partial u}{\partial t} + \frac{\partial}{\partial x}(\frac{1}{2} u^2) = 0$$
+
+This form does not assume that $u$ is differentiable. To further elaborate why this form is needed, first we integrate where $\frac{1}{2} u^2 = F(u)$:
+
+$$
+\begin{aligned}
+\int_{x_1}^{x_2} \left[ \frac{\partial u}{\partial t} + \frac{\partial}{\partial x} F(u) \right] dx &= 0 \\
+\int_{x_1}^{x_2} \frac{\partial u}{\partial t} dx + \int_{x_1}^{x_2} \frac{\partial}{\partial x} F(u) dx &= 0 \\
+\frac{d}{dt} \int_{x_1}^{x_2} u(x,t) dx + F(u(x_2,t)) - F(u(x_1,t)) &= 0
+\end{aligned}
+$$
+
+Rearranging to isolate the rate of change, we get the integral form of this conservation law:
+
+$$\frac{d}{dt} \int_{x_1}^{x_2} u(x,t) \, dx = F(u(x_1,t)) - F(u(x_2,t))$$
+
+The LHS shows the rate of change of the area under the curve on the domain $[x_1,x_2]$, and the RHS shows that this change equals what flows into the left boundary, minus what flows out of the right boundary. Note that this is unaffected by the discontinuity that may be contained by the boundary values.
+
+## Deriving the Weak Formulation
+
+The integral balanced previously derived is a global statement. To solve for specific shock behavious, we introduce a test function $v(x,t)$.  We define $v(x,t)$ as a smooth, differentiable function with compact support on the domain $\Omega$. This means that for $\Omega \subset \mathbb{R}^2$, $v(x,t)$ is perfectly smooth, non-zero on $\Omega$, and zero everywhere else. By fist multiplying the conservative form of Burgers' equation by $v(x,t)$ and then integrating, we dont have to worry about a disconinuous increase of one of the boundary values.
+
+$$\iint_{\Omega} (\frac {\partial u}{\partial t} + \frac {\partial}{\partial x}[\frac{1}{2} u^2])\ v(x,t)\ dtdx = 0$$
+
+Now we define a vector field $\mathbf{U}$ in the $(x,t)$ plane:
+
+$$\mathbf{U} = \begin{pmatrix} \frac{1}{2}u^2 \\ u \end{pmatrix}$$
 
