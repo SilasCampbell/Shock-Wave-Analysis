@@ -152,3 +152,14 @@ Now we define a vector field $\mathbf{U}$ in the $(x,t)$ plane:
 
 $$\mathbf{U} = \begin{pmatrix} \frac{1}{2}u^2 \\ u \end{pmatrix}$$
 
+Noticing that $\nabla \cdot \mathbf{U} = \frac {\partial u}{\partial t} + \frac {\partial}{\partial x}[\frac{1}{2} u^2]$, we substitute this into our integral:
+
+$$\iint_{\Omega} v(\nabla \cdot \mathbf{U})\ dtdx = 0$$
+
+Using the formula $\nabla \cdot (v \mathbf{U}) = v  (\nabla \cdot \mathbf{U}) + \mathbf{U} \cdot \nabla v$, we rearrange and substitute this into the integral:
+
+$$\iint_{\Omega} \nabla \cdot (v \mathbf{U})\ dtdx + \iint_{\Omega} \mathbf{U} \cdot \nabla v\ dtdx = 0$$
+
+By Green's Theorem,
+
+$$\iint_{\Omega} \nabla \cdot (v \mathbf{U})\ dtdx = \oint_{\partial \Omega} v \mathbf{U} \cdot n\ ds$$
