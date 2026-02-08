@@ -144,9 +144,9 @@ The LHS shows the rate of change of the area under the curve on the domain $[x_1
 
 ## Deriving the Weak Formulation
 
-The integral balanced previously derived is a global statement. To solve for specific shock behavious, we introduce a test function $v(x,t)$.  We define $v(x,t)$ as a smooth, differentiable function with compact support on the domain $\Omega$. This means that for $\Omega \subset \mathbb{R}^2$, $v(x,t)$ is perfectly smooth, non-zero on $\Omega$, and zero everywhere else. By fist multiplying the conservative form of Burgers' equation by $v(x,t)$ and then integrating, we dont have to worry about a disconinuous increase of one of the boundary values.
+The integral balanced previously derived is a global statement. To solve for specific shock behaviors, we introduce a test function $v(x,t)$.  We define $v(x,t)$ as a smooth, differentiable function with compact support on the domain $\Omega$. This means that for $\Omega \subset \mathbb{R}^2$, $v(x,t)$ is perfectly smooth, non-zero within a localized region of $\Omega$, and zero on the boundary $\partial \Omega$. By first multiplying the conservative form of Burgers' equation by $v(x,t)$ and then integrating, we don't have to worry about a discontinuous increase of one of the boundary values.
 
-$$\iint_{\Omega} (\frac {\partial u}{\partial t} + \frac {\partial}{\partial x}[\frac{1}{2} u^2])\ v(x,t)\ dtdx = 0$$
+$$\iint_{\Omega} (\frac {\partial u}{\partial t} + \frac {\partial}{\partial x}[\frac{1}{2} u^2])\ v(x,t)\ dt\ dx = 0$$
 
 Now we define a vector field $\mathbf{U}$ in the $(x,t)$ plane:
 
@@ -154,12 +154,22 @@ $$\mathbf{U} = \begin{pmatrix} \frac{1}{2}u^2 \\ u \end{pmatrix}$$
 
 Noticing that $\nabla \cdot \mathbf{U} = \frac {\partial u}{\partial t} + \frac {\partial}{\partial x}[\frac{1}{2} u^2]$, we substitute this into our integral:
 
-$$\iint_{\Omega} v(\nabla \cdot \mathbf{U})\ dtdx = 0$$
+$$\iint_{\Omega} v(\nabla \cdot \mathbf{U})\ dt\ dx = 0$$
 
 Using the formula $\nabla \cdot (v \mathbf{U}) = v  (\nabla \cdot \mathbf{U}) + \mathbf{U} \cdot \nabla v$, we rearrange and substitute this into the integral:
 
-$$\iint_{\Omega} \nabla \cdot (v \mathbf{U})\ dtdx + \iint_{\Omega} \mathbf{U} \cdot \nabla v\ dtdx = 0$$
+$$\iint_{\Omega} \nabla \cdot (v \mathbf{U})\ dt\ dx - \iint_{\Omega} \mathbf{U} \cdot \nabla v\ dt\ dx = 0$$
 
 By Green's Theorem,
 
-$$\iint_{\Omega} \nabla \cdot (v \mathbf{U})\ dtdx = \oint_{\partial \Omega} v \mathbf{U} \cdot n\ ds$$
+$$\iint_{\Omega} \nabla \cdot (v \mathbf{U})\ dt\ dx = \oint_{\partial \Omega} v \mathbf{U} \cdot \mathbf{n}\ \mathbf{ds}$$
+
+Where $\mathbf{n}$ is the outward unit normal vector of the boundary and $\mathbf{ds}$ is the infinitesimal arc length. Because $v(x,t)$ has compact support and is defined to be zero on the boundary $\partial \Omega$, this line integral equals zero:
+
+$$\iint_{\Omega} \nabla \cdot (v \mathbf{U})\ dt\ dx = 0$$
+
+$$\implies \iint_{\Omega} \mathbf{U} \cdot \nabla v\ dt\ dx = 0$$
+
+$$\implies \iint_{\Omega} [u \frac {\partial v}{\partial t} + \frac{1}{2} u^2 \frac {\partial v}{\partial x}]\ dt\ dx = 0$$
+
+This final equation is the Weak Formulation of the conservative Burgers' equation. By shifting the requirement of differentiability from the solution $u$ to the test function $v$, we have established a mathematical framework that remains physically consistent after the Shock Formation Time.
