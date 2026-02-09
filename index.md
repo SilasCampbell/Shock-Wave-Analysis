@@ -4,7 +4,7 @@ layout: single
 mathjax: true
 ---
 
-We study a prototypical shock-wave PDE and compare analytical predictions with numerical experiments.
+
 
 ## What’s here
 - Model PDE
@@ -144,7 +144,7 @@ The LHS shows the rate of change of the area under the curve on the domain $[x_1
 
 ## Deriving the Weak Formulation
 
-The integral balanced previously derived is a global statement. To solve for specific shock behaviors, we introduce a test function $v(x,t)$.  We define $v(x,t)$ as a smooth, differentiable function with compact support on the domain $\Omega$. This means that for $\Omega \subset \mathbb{R}^2$, $v(x,t)$ is perfectly smooth, non-zero within a localized region of $\Omega$, and zero on the boundary $\partial \Omega$. By first multiplying the conservative form of Burgers' equation by $v(x,t)$ and then integrating, we don't have to worry about a discontinuous increase of one of the boundary values.
+The equation previously derived is a global statement about conservation. To derive a local statement that accounts for discontinuities like shocks, we introduce a test function $v(x,t)$.  We define $v(x,t)$ as a smooth, differentiable function with compact support on the domain $\Omega$. This means that for $\Omega \subset \mathbb{R}^2$, $v(x,t)$ is perfectly smooth, non-zero within a localized region of $\Omega$, and zero on the boundary $\partial \Omega$. By first multiplying the conservative form of Burgers' equation by $v(x,t)$ and then integrating, we don't have to worry about a discontinuous increase of one of the boundary values.
 
 $$\iint_{\Omega} (\frac {\partial u}{\partial t} + \frac {\partial}{\partial x}[\frac{1}{2} u^2])\ v(x,t)\ dt\ dx = 0$$
 
