@@ -180,11 +180,11 @@ $$\iint_{\Omega} \left( u \frac{\partial v}{\partial t} + \frac{1}{2}u^2 \frac{\
 
 for all $C^1$ functions $v(t,x)$ with compact support such that $\text{supp } v \subset \Omega$.
 
-By shifting the requirement of differentiability from the solution $u$ to the test function $v$, we have established a mathematical framework that remains physically consistent after the Shock Formation Time. While the weak formulation previously derived allows for the existence of shock solutions, it does not account for uniqueness. In many cases, multiple weak solutions can satisfy the same initial conditions, so to find the physically relevant weak solutions, we would add extra constraints like the entropy condition. While these concepts are crucial for a more detailed thorough analysis of shock wave theory, they remain beyond the scope of this particular project.
+By shifting the requirement of differentiability from the solution $u$ to the test function $v$, we have established a mathematical framework that remains physically consistent after the Shock Formation Time. While the weak formulation previously derived allows for the existence of shock solutions, it does not account for uniqueness. In many cases, multiple weak solutions can satisfy the same initial conditions, so to find the physically relevant weak solutions, we would add extra constraints like the entropy condition. While these concepts are crucial for a more thorough analysis of shock wave theory, they remain beyond the scope of this particular project.
 
 ## The Rankine-Hugoniot Condition
 
-Having now derived a weak solution, we can now apply this equation to determine the speed at which the shock propogates. We consider a domain $\Omega$ with a single jump discontinuity along a smooth curve $\mathbf{C}$ parameterized by $x = \sigma (t)$. This curve bisects our domain into two subdomains: $\Omega_+ \text{ and } \Omega_-$. We define:
+Having now derived a weak solution, we can apply this equation to determine the speed at which the shock propagates. We consider a domain $\Omega$ with a single jump discontinuity along a smooth curve $\mathbf{C}$ parameterized by $x = \sigma (t)$. This curve bisects our domain into two subdomains: $\Omega_+ \text{ and } \Omega_-$. We define:
 
 $$u_+ = u \mid_{\Omega_+}, \text{ which lies above } \mathbf{C}$$
 $$u_- = u \mid_{\Omega_-}, \text{ which lies below } \mathbf{C}$$
