@@ -186,8 +186,8 @@ By shifting the requirement of differentiability from the solution $u$ to the te
 
 Having now derived a weak solution, we can now apply this equation to determine the speed at which the shock propogates. We consider a domain $\Omega$ with a single jump discontinuity along a smooth curve $\mathbf{C}$ parameterized by $x = \sigma (t)$. This curve bisects our domain into two subdomains: $\Omega_+ \text{ and } \Omega_-$. We define:
 
-$u_+ = u | \Omega_+$, which lies above $\mathbf{C}$
-$u_- = u | \Omega_-$, which lies below $\mathbf{C}$
+$u_+ = u \big| \Omega_+$, which lies above $\mathbf{C}$
+$u_- = u \big| \Omega_-$, which lies below $\mathbf{C}$
 
 $u_+ \text{ and } u_-$ are classical solutions on their respective domains. Now we partition the weak solution integral across two sub-domains:
 
