@@ -172,4 +172,66 @@ $$\implies \iint_{\Omega} \mathbf{U} \cdot \nabla v\ dt\ dx = 0$$
 
 $$\implies \iint_{\Omega} [u \frac {\partial v}{\partial t} + \frac{1}{2} u^2 \frac {\partial v}{\partial x}]\ dt\ dx = 0$$
 
-This final equation is the Weak Formulation of the conservative Burgers' equation. By shifting the requirement of differentiability from the solution $u$ to the test function $v$, we have established a mathematical framework that remains physically consistent after the Shock Formation Time.
+This final equation aligns with the definition of the weak solution to Burgers' equation in Introduction to Partial Differential Equations by Olver (2016):
+
+Definition: A function $u(t,x)$ is said to be a weak solution to the nonlinear transport equation if:
+
+$$\iint_{\Omega} \left( u \frac{\partial v}{\partial t} + \frac{1}{2}u^2 \frac{\partial v}{\partial x} \right) dt \, dx = 0 \quad \text{}$$
+
+for all $C^1$ functions $v(t,x)$ with compact support such that $\text{supp } v \subset \Omega$.
+
+By shifting the requirement of differentiability from the solution $u$ to the test function $v$, we have established a mathematical framework that remains physically consistent after the Shock Formation Time. While the weak formulation previously derived allows for the existence of shock solutions, it does not account for uniqueness. In many cases, multiple weak solutions can satisfy the same initial conditions, so to find the physically relevant weak solutions, we would add extra constraints like the entropy condition. While these concepts are crucial for a more detailed thorough analysis of shock wave theory, they remain beyond the scope of this particular project.
+
+## The Rankine-Hugoniot Condition
+
+Having now derived a weak solution, we can now apply this equation to determine the speed at which the shock propogates. We consider a domain $\Omega$ with a single jump discontinuity along a smooth curve $\mathbf{C}$ parameterized by $x = \sigma (t)$. This curve bisects our domain into two subdomains: $\Omega_+ \text{ and } \Omega_-$. We define:
+
+$$u_+ = u | \Omega_+$$, which lies above $\mathbf{C}$
+$$u_- = u | \Omega_-$$, which lies below $\mathbf{C}$
+
+$u_+ \text{ and } u_-$ are classical solutions on their respective domains. Now we partition the weak solution integral across two sub-domains:
+
+$$\iint_{\Omega_-} \left( u_- \frac{\partial v}{\partial t} + \frac{1}{2}u_-^2 \frac{\partial v}{\partial x} \right) dt \ dx + \iint_{\Omega_+} \left( u_+ \frac{\partial v}{\partial t} + \frac{1}{2}u_+^2 \frac{\partial v}{\partial x} \right) dt \ dx = 0$$
+
+Using Green's Formula:
+
+$$0 = \oint_{\partial \Omega_-} (\mathbf{U_-} \cdot \mathbf{n_-}) v \ ds - \iint_{\Omega_-} \left( (u_-)_t + (u_-^2)_x \right) v \ dt \ dx + \oint_{\partial \Omega_+} (\mathbf{U_+} \cdot \mathbf{n_+}) v \ ds - \iint_{\Omega_+} \left( (u_+)_t + (u_+^2)_x \right) v \ dt \ dx$$
+
+Because $u_- \text{ and } u_+$ are classical soultions, $u_t + (\frac{1}{2} u^2)_x = 0$ and the integral collapses to:
+
+$$0 = \oint_{\partial \Omega_-} (\mathbf{U_-} \cdot \mathbf{n_-}) v \ ds + \oint_{\partial \Omega_+} (\mathbf{U_+} \cdot \mathbf{n_+}) v \ ds$$
+
+Because $v$ has compact support and equals $0$ on the outer boundary $\partial \Omega$, the only remaining part of the integral lies on the shock curve $\mathbf{C}$:
+
+$$0 = \oint_{\mathbf{C}} (\mathbf{U_-} \cdot \mathbf{n_-} + \mathbf{U_+} \cdot \mathbf{n_+}) v \ ds$$
+
+Since $\mathbf{n}$ represents the outward normal of $\mathbf{C}$, $\mathbf{n_-} = -\mathbf{n_+}$. Substituting this in, we get:
+
+$$0 = \oint_{\mathbf{C}} (\mathbf{U_-} - \mathbf{U_+}) \cdot \mathbf{n_-} v \ ds$$
+
+To solve for $\mathbf{n_-}$, we first parameterize the shock curve $\mathbf{C}$ as $G(x,t) = x - \sigma (t) = 0$. The gradient of $G$ will be normal to $\mathbf{C}$ and will be the value of $\mathbf{n_-}$. 
+
+$$\nabla G = \left( \frac{\partial G}{\partial x}, \frac{\partial G}{\partial t} \right) = (1, -\dot{\sigma}(t))$$
+
+Substituting this in and calculating the dot product:
+
+$$0 = \oint_{\mathbf{C}} (\mathbf{U_-} - \mathbf{U_+}) \cdot (1, -\dot{\sigma}(t)) v \ ds$$
+$$0 = \oint_{\mathbf{C}} \left[ \left( \frac{1}{2}u_-^2 - \frac{1}{2}u_+^2 \right) - \dot{\sigma}(t)(u_- - u_+) \right] v \ ds$$
+
+Since this integral must equal zero for any arbitrary smooth test function $v$ with compact support, the term inside the brackets must vanish along the curve $\mathbf{C}$:
+
+$$\left( \frac{1}{2}u_-^2 - \frac{1}{2}u_+^2 \right) - \dot{\sigma}(t)(u_- - u_+) = 0$$
+
+We now isolate the shock speed, $s = \dot{\sigma}(t)$:
+
+$$\dot{\sigma}(t)(u_- - u_+) = \frac{1}{2}u_-^2 - \frac{1}{2}u_+^2$$
+$$s = \frac{\frac{1}{2}u_-^2 - \frac{1}{2}u_+^2}{u_- - u_+}$$
+
+Using the difference of squares $(\frac{1}{2}(u_- - u_+)(u_- + u_+))$, the expression simplifies to the final jump condition for Burgers' equation:
+
+$$s = \frac{u_- + u_+}{2}$$
+
+This result, the Rankine-Hugoniot condition, shows that the shock wave propogates at the average velocity of the state immediately ahead of and behind the discontinuity.
+
+
+
