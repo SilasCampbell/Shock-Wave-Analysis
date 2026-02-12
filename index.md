@@ -73,7 +73,7 @@ $$u(x,t) = f(x - ut)$$
 
 $$u(x,t) = 1 + \frac{1}{2}sin(x - ut)$$
 
-Due to this being a transcendental equation, the use of a numeric solver is needed and will be explored in the Numeric Method and Results section of the paper.
+Due to this being a transcendental equation, the equation cannot be simplified any further and must remain in this implicit form.
 
 ## Singularity Analysis
 
@@ -144,9 +144,9 @@ The LHS shows the rate of change of the area under the curve on the domain $[x_1
 
 ## Deriving the Weak Formulation
 
-The equation previously derived is a global statement about conservation. To derive a local statement that accounts for discontinuities like shocks, we introduce a test function $v(x,t)$.  We define $v(x,t)$ as a smooth, differentiable function with compact support on the domain $\Omega$. This means that for $\Omega \subset \mathbb{R}^2$, $v(x,t)$ is perfectly smooth, non-zero within a localized region of $\Omega$, and zero on the boundary $\partial \Omega$. By first multiplying the conservative form of Burgers' equation by $v(x,t)$ and then integrating, we don't have to worry about a discontinuous increase of one of the boundary values.
+The equation previously derived is a global statement about conservation. To derive a local statement that accounts for discontinuities like shocks, we introduce a test function $\text{supp}(v)$.  We define $\text{supp}(v)$ as a smooth, differentiable function with compact support contained in $\Omega = \mathbb{R} \times [0, \infty)$. This means that $\text{supp}(v)$ is perfectly smooth, non-zero within a localized region of $\Omega$, and zero on the boundary $\partial \Omega$. By first multiplying the conservative form of Burgers' equation by $\text{supp}(v)$ and then integrating, we don't have to worry about a discontinuous increase of one of the boundary values.
 
-$$\iint_{\Omega} (\frac {\partial u}{\partial t} + \frac {\partial}{\partial x}[\frac{1}{2} u^2])\ v(x,t)\ dt\ dx = 0$$
+$$\iint_{\Omega} (\frac {\partial u}{\partial t} + \frac {\partial}{\partial x}[\frac{1}{2} u^2])\ \text{supp}(v)\ dt\ dx = 0$$
 
 Now we define a vector field $\mathbf{U}$ in the $(x,t)$ plane:
 
@@ -187,6 +187,7 @@ By shifting the requirement of differentiability from the solution $u$ to the te
 Having now derived a weak solution, we can apply this equation to determine the speed at which the shock propagates. We consider a domain $\Omega$ with a single jump discontinuity along a smooth curve $\mathbf{C}$ parameterized by $x = \sigma (t)$. This curve bisects our domain into two subdomains: $\Omega_+ \text{ and } \Omega_-$. We define:
 
 $$u_+ = u \mid_{\Omega_+}, \text{ which lies above } \mathbf{C}$$
+
 $$u_- = u \mid_{\Omega_-}, \text{ which lies below } \mathbf{C}$$
 
 $u_+ \text{ and } u_-$ are classical solutions on their respective domains. Now we partition the weak solution integral across two sub-domains:
@@ -195,7 +196,8 @@ $$\iint_{\Omega_-} \left( u_- \frac{\partial v}{\partial t} + \frac{1}{2}u_-^2 \
 
 Using Green's Formula:
 
-$$0 = \oint_{\partial \Omega_-} (\mathbf{U_-} \cdot \mathbf{n_-}) v \ ds - \iint_{\Omega_-} \left( (u_-)_t + (u_-^2)_x \right) v \ dt \ dx + \oint_{\partial \Omega_+} (\mathbf{U_+} \cdot \mathbf{n_+}) v \ ds - \iint_{\Omega_+} \left( (u_+)_t + (u_+^2)_x \right) v \ dt \ dx$$
+$$0 = \oint_{\partial \Omega_-} (\mathbf{U_-} \cdot \mathbf{n_-}) v \ ds - \iint_{\Omega_-} \left( (u_-)_t + (u_-^2)_x \right) v \ dt \ dx$$ 
+$$+ \oint_{\partial \Omega_+} (\mathbf{U_+} \cdot \mathbf{n_+}) v \ ds - \iint_{\Omega_+} \left( (u_+)_t + (u_+^2)_x \right) v \ dt \ dx$$
 
 Because $u_- \text{ and } u_+$ are classical soultions, $u_t + (\frac{1}{2} u^2)_x = 0$ and the integral collapses to:
 
