@@ -237,13 +237,9 @@ This result, the Rankine-Hugoniot condition, shows that the shock wave propogate
 
 # Numerical Methods
 
-To simulate the evolution of the solution past the shock-formation time, we implement the Lax–Wendroff scheme, a second-order accurate finite difference method for nonlinear conservation laws.We begin from the conservative form of Burgers’ equation:
+To simulate the evolution of the solution past the shock-formation time, we implement the Lax–Wendroff scheme, a second-order accurate finite difference method for nonlinear conservation laws. We begin from the conservative form of Burgers’ equation: $u_t + \left( \frac{1}{2}u^2 \right)_x = 0$, which can be written in general conservation form as:
 
-$$u_t + \left( \frac{1}{2}u^2 \right)_x = 0$$
-
-which can be written in general conservation form as:
-
-$$u_t + f(u)_x = 0, \quad f(u) = \frac{1}{2}u^2$$
+$$u_t + f(u)_x = 0, \text{where} f(u) = \frac{1}{2}u^2$$
 
 ## The Lax–Wendroff Scheme for Conservation Laws
 
@@ -277,7 +273,7 @@ Using centered differences to approximate the spatial derivatives:
 
 $$(f(u)_x)_i^n \approx \frac{f(u_{i+1}^n) - f(u_{i-1}^n)}{2\Delta x}$$
 
-And for the second-order term:
+For the second-order term we get:
 
 $$u_{xx} \approx \frac{u_{i+1}^n - 2u_i^n + u_{i-1}^n}{\Delta x^2}$$
 
