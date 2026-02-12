@@ -237,32 +237,61 @@ This result, the Rankine-Hugoniot condition, shows that the shock wave propogate
 
 # Numerical Methods
 
-To simulate the evolution of the wave after the shock-formation time, we utilize the Lax_Wendroff method, a second-order finite difference scheme. As a second-order method, Lax-Wendroff is more accurate than first-order methods by using the first and second terms of the Taylor expansion with respect to time.
+To simulate the evolution of the solution past the shock-formation time, we implement the Lax–Wendroff scheme, a second-order accurate finite difference method for nonlinear conservation laws.We begin from the conservative form of Burgers’ equation:
 
-## Deriving Lax-Wendroff
+$$u_t + \left( \frac{1}{2}u^2 \right)_x = 0$$
 
-We begin by predicting the value of $u$ at each point $i$ after one tiny step in the future using a second-order Taylor series:
+which can be written in general conservation form as:
 
-$$u(x, t + \Delta t) \approx u(x, t) + \Delta t \frac{\partial u}{\partial t} + \frac{\Delta t^2}{2} \frac{\partial^2 u}{\partial t^2}$$
+$$u_t + f(u)_x = 0, \quad f(u) = \frac{1}{2}u^2$$
 
-In discrete notation, this is expressed as:
+## The Lax–Wendroff Scheme for Conservation Laws
 
-$$u_i^{n+1} = u_i^n + \Delta t \left( \frac{\partial u}{\partial t} \right)_i^n + \frac{\Delta t^2}{2} \left( \frac{\partial^2 u}{\partial t^2} \right)_i^n$$
+The Lax–Wendroff method is derived from a second-order Taylor expansion in time:
 
-where $i$ is a fixed location, and $n$ is the current time.
+$$u_i^{n+1} = u_i^n + \Delta t(u_t)_i^n + \frac{\Delta t^2}{2}(u_{tt})_i^n$$
 
-Because we know the current spatial shape of the wave in this simulation, we need this formula to depend on the spatial derivative of $u$. From the PDE $u_t + u u_x = 0$, we get:
+From the PDE, we can substitute the first temporal derivative:
 
-$$\left( \frac{\partial u}{\partial t} \right)_i^n = -u_i^n \left( \frac{\partial u}{\partial x} \right)_i^n $$ 
+$$u_t = -f(u)_x$$Differentiating once more with respect to time to find the second-order term:$$u_{tt} = -\frac{\partial}{\partial t}(f(u)_x) = -\frac{\partial}{\partial x}(f(u)_t)$$
 
-Differentiating $u_t$ with respect to time and applying the chain rule, we find:
+Using the chain rule:
 
-$$\left( \frac{\partial^2 u}{\partial t^2} \right)_i^n = \left[ \frac{\partial}{\partial x} \left( u^2 \frac{\partial u}{\partial x} \right) \right]_i^n$$
+$$f(u)_t = f'(u)u_t$$
 
-Substituting this into the Taylor expansion, we get:
+Substituting $u_t = -f(u)_x$ back into the expression:
 
-$$u_i^{n+1} = u_i^n - \Delta t \left( u \frac{\partial u}{\partial x} \right)_i^n + \frac{\Delta t^2}{2} \left[ \frac{\partial}{\partial x} \left( u^2 \frac{\partial u}{\partial x} \right) \right]_i^n$$
+$$u_{tt} = \frac{\partial}{\partial x}(f'(u)f(u)_x)$$
 
+Thus, the Taylor expansion becomes:
 
+$$u_i^{n+1} = u_i^n - \Delta t(f(u)_x)_i^n + \frac{\Delta t^2}{2} \left[ \frac{\partial}{\partial x}(f'(u)f(u)_x) \right]_i^n$$
 
+## Discretization Used in the Code
+
+For Burgers’ equation, $f(u) = \frac{1}{2}u^2$, so the Jacobian is:
+
+$$f'(u) = u$$
+
+Using centered differences to approximate the spatial derivatives:
+
+$$(f(u)_x)_i^n \approx \frac{f(u_{i+1}^n) - f(u_{i-1}^n)}{2\Delta x}$$
+
+And for the second-order term:
+
+$$u_{xx} \approx \frac{u_{i+1}^n - 2u_i^n + u_{i-1}^n}{\Delta x^2}$$
+
+After substitution and algebraic simplification, the update formula reduces to the classical quasilinear Lax–Wendroff form:
+
+$$u_i^{n+1} = u_i^n - \frac{u_i^n \Delta t}{2\Delta x}(u_{i+1}^n - u_{i-1}^n) + \frac{(u_i^n \Delta t)^2}{2\Delta x^2}(u_{i+1}^n - 2u_i^n + u_{i-1}^n)$$
+
+## Implementation
+
+In the code, we define the local Courant number:
+
+$$c_i = \frac{u_i^n \Delta t}{\Delta x}$$
+
+The final update used in the simulation becomes:
+
+$$u_i^{n+1} = u_i^n - \frac{1}{2}c_i(u_{i+1}^n - u_{i-1}^n) + \frac{1}{2}c_i^2(u_{i+1}^n - 2u_i^n + u_{i-1}^n)$$
 
