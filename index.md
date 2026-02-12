@@ -144,9 +144,9 @@ The LHS shows the rate of change of the area under the curve on the domain $[x_1
 
 ## Deriving the Weak Formulation
 
-The equation previously derived is a global statement about conservation. To derive a local statement that accounts for discontinuities like shocks, we introduce a test function $\text{supp}(v)$.  We define $\text{supp}(v)$ as a smooth, differentiable function with compact support contained in $\Omega = \mathbb{R} \times [0, \infty)$. This means that $\text{supp}(v)$ is perfectly smooth, non-zero within a localized region of $\Omega$, and zero on the boundary $\partial \Omega$. By first multiplying the conservative form of Burgers' equation by $\text{supp}(v)$ and then integrating, we don't have to worry about a discontinuous increase of one of the boundary values.
+The equation previously derived is a global statement about conservation. To derive a local statement that accounts for discontinuities like shocks, we introduce a test function $v(x,t)$ with compact support, denoted $\text{supp}(v)$. This means $v(x,t)$ is a smooth, infinitely differentiable function with compact support defined on $\text{supp}(v) \subset \Omega$ where $\Omega = \mathbb{R} \times [0,\infty)$, and v(x,t) is zero on the boundary $\partial \Omega$. By first multiplying the conservative form of Burgers' equation by $v(x,t)$ and then integrating, we don't have to worry about a discontinuous increase of one of the boundary values.
 
-$$\iint_{\Omega} (\frac {\partial u}{\partial t} + \frac {\partial}{\partial x}[\frac{1}{2} u^2])\ \text{supp}(v)\ dt\ dx = 0$$
+$$\iint_{\Omega} (\frac {\partial u}{\partial t} + \frac {\partial}{\partial x}[\frac{1}{2} u^2])\ v(x,t)\ dt\ dx = 0$$
 
 Now we define a vector field $\mathbf{U}$ in the $(x,t)$ plane:
 
@@ -234,6 +234,35 @@ Using the difference of squares $(\frac{1}{2}(u_- - u_+)(u_- + u_+))$, the expre
 $$s = \frac{u_- + u_+}{2}$$
 
 This result, the Rankine-Hugoniot condition, shows that the shock wave propogates at the average velocity of the state immediately ahead of and behind the discontinuity.
+
+# Numerical Methods
+
+To simulate the evolution of the wave after the shock-formation time, we utilize the Lax_Wendroff method, a second-order finite difference scheme. As a second-order method, Lax-Wendroff is more accurate than first-order methods by using the first and second terms of the Taylor expansion with respect to time.
+
+## Deriving Lax-Wendroff
+
+We begin by predicting the value of $u$ at each point $i$ after one tiny step in the future using a second-order Taylor series:
+
+$$u(x, t + \Delta t) \approx u(x, t) + \Delta t \frac{\partial u}{\partial t} + \frac{\Delta t^2}{2} \frac{\partial^2 u}{\partial t^2}$$
+
+In discrete notation, this is expressed as:
+
+$$u_i^{n+1} = u_i^n + \Delta t \left( \frac{\partial u}{\partial t} \right)_i^n + \frac{\Delta t^2}{2} \left( \frac{\partial^2 u}{\partial t^2} \right)_i^n$$
+
+where $i$ is a fixed location, and $n$ is the current time.
+
+Because we know the current spatial shape of the wave in this simulation, we need this formula to depend on the spatial derivative of $u$. From the PDE $u_t + u u_x = 0$, we get:
+
+$$\left( \frac{\partial u}{\partial t} \right)_i^n = -u_i^n \left( \frac{\partial u}{\partial x} \right)_i^n $$ 
+
+Differentiating $u_t$ with respect to time and applying the chain rule, we find:
+
+$$\left( \frac{\partial^2 u}{\partial t^2} \right)_i^n = \left[ \frac{\partial}{\partial x} \left( u^2 \frac{\partial u}{\partial x} \right) \right]_i^n$$
+
+Substituting this into the Taylor expansion, we get:
+
+$$u_i^{n+1} = u_i^n - \Delta t \left( u \frac{\partial u}{\partial x} \right)_i^n + \frac{\Delta t^2}{2} \left[ \frac{\partial}{\partial x} \left( u^2 \frac{\partial u}{\partial x} \right) \right]_i^n$$
+
 
 
 
