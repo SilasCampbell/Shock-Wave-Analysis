@@ -297,9 +297,9 @@ $$c_i = \frac{u_i^n \Delta t}{\Delta x}$$
 
 In the program:
 
-* $\Delta x \approx 0.002$
-* $\Delta t = 10^{-4}$
-* $\max |u| \le 1.5$
+$$\Delta x \approx 0.002$$
+$$\Delta t = 10^{-4}$$
+$$\text{max} |u| \le 1.5$$
 
 So the CFL condition is met and $|c_i| < 1$
 
