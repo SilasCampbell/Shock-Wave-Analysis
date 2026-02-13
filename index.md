@@ -269,15 +269,23 @@ For Burgers’ equation, $f(u) = \frac{1}{2}u^2$, so the Jacobian is:
 
 $$f'(u) = u$$
 
-Using centered differences to approximate the spatial derivatives:
+The spatial derivative of the flux is expanded using the chain rule:
 
-$$(f(u)_x)_i^n \approx \frac{f(u_{i+1}^n) - f(u_{i-1}^n)}{2\Delta x}$$
+$$(f(u)_x)_i^n = \frac{\partial}{\partial x} \left( \frac{1}{2} u^2 \right)_i^n = \left( u \frac{\partial u}{\partial x} \right)_i^n$$
 
-For the second-order term, we approximate the nested derivative $\frac{\partial}{\partial x} [u \cdot f(u)_x]$ by evaluating the wave speed $u$ locally at point $i$, and using the second order central difference to approximate $(f(u)_xx)_i^n$:
+Approximating $\frac{\partial u}{\partial x}$ with a first-order central difference, we get:
 
-$$\left[ \frac{\partial}{\partial x} \left( u \cdot f(u)_x \right) \right]_i^n \approx (u_i^n)^2 \left( \frac{u_{i+1}^n - 2u_i^n + u_{i-1}^n}{\Delta x^2} \right)$$
+$$(f(u)_x)_i^n \approx u_i^n \left( \frac{u_{i+1}^n - u_{i-1}^n}{2\Delta x} \right)$$
 
-After substitution, the update formula reduces to the quasilinear Lax–Wendroff form:
+For the second-order term, we approximate the nested derivative $\frac{\partial}{\partial x} [f'(u) f(u)_x]$. Substituting $f'(u) = u$ and $f(u)_x = u \frac{\partial u}{\partial x}$, the term becomes:
+
+$$[\frac{\partial}{\partial x} (u^2 \frac{\partial u}{\partial x})]_i^n$$
+
+By evaluating the wave speed $u^2$ locally at grid point $i$, making $u^2$ act like a constant, and applying a second-order central difference to the spatial gradient, we obtain:
+
+$$[ \frac{\partial}{\partial x} (u^2 \frac{\partial u}{\partial x})]_i^n \approx (u_i^n)^2 (\frac{\partial^2 u}{\partial x^2}) \approx (u_i^n)^2 \left( \frac{u_{i+1}^n - 2u_i^n + u_{i-1}^n}{\Delta x^2} \right)$$
+
+After substitution, the formula reduces to the quasilinear Lax–Wendroff form:
 
 $$u_i^{n+1} = u_i^n - \frac{u_i^n \Delta t}{2\Delta x}(u_{i+1}^n - u_{i-1}^n) + \frac{(u_i^n \Delta t)^2}{2\Delta x^2}(u_{i+1}^n - 2u_i^n + u_{i-1}^n)$$
 
