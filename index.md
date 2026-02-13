@@ -239,7 +239,7 @@ This result, the Rankine-Hugoniot condition, shows that the shock wave propogate
 
 To simulate the evolution of the solution past the shock-formation time, we implement the Lax–Wendroff scheme, a second-order accurate finite difference method for nonlinear conservation laws. We begin from the conservative form of Burgers’ equation: $u_t + \left( \frac{1}{2}u^2 \right)_x = 0$, which can be written in general conservation form as:
 
-$$u_t + f(u)_x = 0, \text{where} f(u) = \frac{1}{2}u^2$$
+$$u_t + f(u)_x = 0, \ \text{where} \ f(u) = \frac{1}{2}u^2$$
 
 ## The Lax–Wendroff Scheme for Conservation Laws
 
@@ -273,11 +273,11 @@ Using centered differences to approximate the spatial derivatives:
 
 $$(f(u)_x)_i^n \approx \frac{f(u_{i+1}^n) - f(u_{i-1}^n)}{2\Delta x}$$
 
-For the second-order term we get:
+For the second-order term, we approximate the nested derivative $\frac{\partial}{\partial x} [u \cdot f(u)_x]$ by evaluating the wave speed $u$ locally at point $i$, and using the second order central difference to approximate $(f(u)_xx)_i^n$:
 
-$$u_{xx} \approx \frac{u_{i+1}^n - 2u_i^n + u_{i-1}^n}{\Delta x^2}$$
+$$\left[ \frac{\partial}{\partial x} \left( u \cdot f(u)_x \right) \right]_i^n \approx (u_i^n)^2 \left( \frac{u_{i+1}^n - 2u_i^n + u_{i-1}^n}{\Delta x^2} \right)$$
 
-After substitution and algebraic simplification, the update formula reduces to the classical quasilinear Lax–Wendroff form:
+After substitution, the update formula reduces to the quasilinear Lax–Wendroff form:
 
 $$u_i^{n+1} = u_i^n - \frac{u_i^n \Delta t}{2\Delta x}(u_{i+1}^n - u_{i-1}^n) + \frac{(u_i^n \Delta t)^2}{2\Delta x^2}(u_{i+1}^n - 2u_i^n + u_{i-1}^n)$$
 
