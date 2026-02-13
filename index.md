@@ -339,13 +339,14 @@ This component approximates the second spatial derivative (the curvature) using 
 
 ## Results
 
-
 <div align="center">
   <img src="lagrange_detailed_evolution.png" alt="Detailed Evolution" width="80%">
-  <p><b>Figure 1:</b> Detailed evolution of the wave profile showing shock formation at $t^* = 2$.</p>
+  <p><b>Figure 1:</b> Detailed evolution of the implicit solution showing the shock formation at $t^* = 2$ and the overturning wave.</p>
 </div>
 
-
-
+<div align="center">
+  <img src="lax_wendroff_final.png" alt="Lax-Wendroff Final Result" width="80%">
+  <p><b>Figure 2:</b> Final numerical solution using the Lax–Wendroff scheme. The profile shows a stable shock front maintained by numerical smoothing after the shock formation time $t^* = 2$.</p>
+</div>
 
 
