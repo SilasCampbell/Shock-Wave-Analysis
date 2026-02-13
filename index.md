@@ -299,7 +299,7 @@ In the program:
 
 * $\Delta x \approx 0.002$
 * $\Delta t = 10^{-4}$
-* $\text{max} |u| \le 1.5$
+* $\max |u| \le 1.5$
 
 So the CFL condition is met and $|c_i| < 1$
 
