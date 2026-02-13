@@ -304,7 +304,7 @@ $$\Delta t = 10^{-4}$$
 $$\text{max} |u| = 1.5$$
 
 
-So the CFL condition is met and $|c_i| < 1$.
+So the CFL condition is met and $ |c_i| < 1$.
 
 The final formulation used in the simulation becomes:
 
