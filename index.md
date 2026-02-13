@@ -340,7 +340,10 @@ This component approximates the second spatial derivative (the curvature) using 
 ## Results
 
 
-
+<div align="center">
+  <img src="lagrange_detailed_evolution.png" alt="Detailed Evolution" width="80%">
+  <p><b>Figure 1:</b> Detailed evolution of the wave profile showing shock formation at $t^* = 2$.</p>
+</div>
 
 
 
