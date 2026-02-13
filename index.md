@@ -237,7 +237,7 @@ This result, the Rankine-Hugoniot condition, shows that the shock wave propogate
 
 # Numerical Methods
 
-To simulate the evolution of the solution past the shock-formation time, we implement the Lax–Wendroff scheme, a second-order accurate finite difference method for nonlinear conservation laws. We begin from the conservative form of Burgers’ equation: $u_t + \left( \frac{1}{2}u^2 \right)_x = 0$, which can be written in general conservation form as:
+To simulate the evolution of the wave past the shock-formation time, we implement the Lax–Wendroff scheme, a second-order accurate finite difference method for nonlinear conservation laws. We begin from the conservative form of Burgers’ equation: $u_t + \left( \frac{1}{2}u^2 \right)_x = 0$, which can be written in general conservation form as:
 
 $$u_t + f(u)_x = 0, \ \text{where} \ f(u) = \frac{1}{2}u^2$$
 
@@ -249,7 +249,11 @@ $$u_i^{n+1} = u_i^n + \Delta t(u_t)_i^n + \frac{\Delta t^2}{2}(u_{tt})_i^n$$
 
 From the PDE, we can substitute the first temporal derivative:
 
-$$u_t = -f(u)_x$$Differentiating once more with respect to time to find the second-order term:$$u_{tt} = -\frac{\partial}{\partial t}(f(u)_x) = -\frac{\partial}{\partial x}(f(u)_t)$$
+$$u_t = -f(u)_x$$
+
+Differentiating once more with respect to time to find the second-order term:
+
+$$u_{tt} = -\frac{\partial}{\partial t}(f(u)_x) = -\frac{\partial}{\partial x}(f(u)_t)$$
 
 Using the chain rule:
 
@@ -262,8 +266,6 @@ $$u_{tt} = \frac{\partial}{\partial x}(f'(u)f(u)_x)$$
 Thus, the Taylor expansion becomes:
 
 $$u_i^{n+1} = u_i^n - \Delta t(f(u)_x)_i^n + \frac{\Delta t^2}{2} \left[ \frac{\partial}{\partial x}(f'(u)f(u)_x) \right]_i^n$$
-
-## Discretization Used in the Code
 
 For Burgers’ equation, $f(u) = \frac{1}{2}u^2$, so the Jacobian is:
 
@@ -281,11 +283,15 @@ For the second-order term, we approximate the nested derivative $\frac{\partial}
 
 $$[\frac{\partial}{\partial x} (u^2 \frac{\partial u}{\partial x})]_i^n$$
 
-By evaluating the wave speed $u^2$ locally at grid point $i$, making $u^2$ act like a constant, and applying a second-order central difference to the second partial derivative, we obtain:
+By evaluating the wave speed $u^2$ locally at grid point $i$, making $u^2$ act like a constant, we get:
+
+$$[\frac{\partial}{\partial x} (u^2 \frac{\partial u}{\partial x})]_i^n \approx u^2 \frac{\partial}{\partial x} (\frac{\partial u}{\partial x})$$
+
+Applying a second-order central difference to the second partial derivative:
 
 $$[ \frac{\partial}{\partial x} (u^2 \frac{\partial u}{\partial x})]_i^n \approx (u_i^n)^2 (\frac{\partial^2 u}{\partial x^2}) \approx (u_i^n)^2 \left( \frac{u_{i+1}^n - 2u_i^n + u_{i-1}^n}{\Delta x^2} \right)$$
 
-After substitution, the formula reduces to the quasilinear Lax–Wendroff form:
+After substitution, the formula reduces to the Lax–Wendroff method used in the code:
 
 $$u_i^{n+1} = u_i^n - \frac{1}{2}(\frac{u_i^n \Delta t}{\Delta x})(u_{i+1}^n - u_{i-1}^n) + \frac{1}{2} (\frac{u_i^n \Delta t}{\Delta x})^2 (u_{i+1}^n - 2u_i^n + u_{i-1}^n)$$
 
@@ -295,7 +301,7 @@ In the code, we define the local Courant number:
 
 $$c_i = \frac{u_i^n \Delta t}{\Delta x}$$
 
-In the program:
+Where,
 
 $$\Delta x \approx 0.002$$
 
@@ -316,17 +322,24 @@ Once derived and discretized, the final update formula used in the simulation is
 $$u_i^{n+1} = u_i^n - \frac{1}{2}c_i(u_{i+1}^n - u_{i-1}^n) + \frac{1}{2}c_i^2(u_{i+1}^n - 2u_i^n + u_{i-1}^n)$$
 
 1. Temporal States ($u^n$ and $u^{n+1}$)
+
 The component ($u_i^n$) represents the velocity at grid point $i$ at the current time step $n$. Similarly ($u_i^{n+1}$) is the value being solved for at the next discrete time interval, $n + \Delta t$.
 
 2. The Local Courant Number ($c_i$)
+
 Defined as $c_i = \frac{u_i^n \Delta t}{\Delta x}$, this number determines how much information moves across the grid per time step. Because Burgers' equation is nonlinear, the algorithm calculates $c_i$ locally at every point, allowing the numerical speed to adapt to the physical velocity of the wave.
   
-
 3. The Advection Term ($-\frac{1}{2}c_i(u_{i+1}^n - u_{i-1}^n)$)
-This term utilizes a first-order central difference to approximate the spatial slope of the wave. It represents the primary "physics" of the PDE, responsible for moving the wave forward in space. By looking at both the left ($i-1$) and right ($i+1$) neighbors, it maintains spatial symmetry and second-order accuracy.
+
+This term utilizes a first-order central difference to approximate the slope of the wave at grid points $i$. It represents the primary "physics" of the PDE, responsible for moving the wave forward in space.
 
 4. The Dissipation Term ($+\frac{1}{2}c_i^2(u_{i+1}^n - 2u_i^n + u_{i-1}^n)$)
-This component approximates the second spatial derivative (the curvature) using a second-order central difference and acts as a stabilizer by providing numerical "smoothing". It detects sharp gradients that occur as $t \to t^*$ and applies a dissipative force to prevent unphysical oscillations (wiggles) and numerical "explosions". By squaring the Courant number ($c_i^2$), the algorithm ensures that the smoothing effect is always positive and proportional to the local wave speed, which is a requirement for maintaining the stability of the shock front.
+
+This component approximates the second spatial derivative (the curvature) using a second-order central difference and acts as a stabilizer by providing numerical "smoothing". It detects sharp gradients that occur as $t \to t^*$ and applies a dissipative force to prevent numerical "explosions". By squaring the Courant number ($c_i^2$), the algorithm ensures that the smoothing effect is always positive and proportional to the local wave speed, which is a requirement for maintaining the stability of the shock front.
+
+## Results
+
+
 
 
 
