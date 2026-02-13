@@ -307,5 +307,29 @@ So the CFL condition is met and $c_i < 1$.
 
 The final formulation used in the simulation becomes:
 
+$$u_i^{n+1} = u_i^n - \frac{1}{2} c_i(u_{i+1}^n - u_{i-1}^n) + \frac{1}{2} c_i^2(u_{i+1}^n - 2u_i^n + u_{i-1}^n)$$
+
+## Anatomy of the Lax-Wendroff Formula
+
+Once derived and discretized, the final update formula used in the simulation is a summation of four distinct components, each serving a specific mathematical or physical purpose:
+
 $$u_i^{n+1} = u_i^n - \frac{1}{2}c_i(u_{i+1}^n - u_{i-1}^n) + \frac{1}{2}c_i^2(u_{i+1}^n - 2u_i^n + u_{i-1}^n)$$
+
+1. Temporal States ($u^n$ and $u^{n+1}$)
+The component ($u_i^n$) represents the velocity at grid point $i$ at the current time step $n$. Similarly ($u_i^{n+1}$) is the value being solved for at the next discrete time interval, $n + \Delta t$.
+
+2. The Local Courant Number ($c_i$)
+Defined as $c_i = \frac{u_i^n \Delta t}{\Delta x}$, this number determines how much information moves across the grid per time step. Because Burgers' equation is nonlinear, the algorithm calculates $c_i$ locally at every point, allowing the numerical speed to adapt to the physical velocity of the wave.
+  
+
+3. The Advection Term ($-\frac{1}{2}c_i(u_{i+1}^n - u_{i-1}^n)$)
+This term utilizes a first-order central difference to approximate the spatial slope of the wave. It represents the primary "physics" of the PDE, responsible for moving the wave forward in space. By looking at both the left ($i-1$) and right ($i+1$) neighbors, it maintains spatial symmetry and second-order accuracy.
+
+4. The Dissipation Term ($+\frac{1}{2}c_i^2(u_{i+1}^n - 2u_i^n + u_{i-1}^n)$)
+This component approximates the second spatial derivative (the curvature) using a second-order central difference and acts as a stabilizer by providing numerical "smoothing". It detects sharp gradients that occur as $t \to t^*$ and applies a dissipative force to prevent unphysical oscillations (wiggles) and numerical "explosions". By squaring the Courant number ($c_i^2$), the algorithm ensures that the smoothing effect is always positive and proportional to the local wave speed, which is a requirement for maintaining the stability of the shock front.
+
+
+
+
+
 
