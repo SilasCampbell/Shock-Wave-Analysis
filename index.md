@@ -301,8 +301,7 @@ $$\Delta x \approx 0.002$$
 
 $$\Delta t = 10^{-4}$$
 
-$$\text{max} |u| = 1.5$$
-
+$$0.5 \le u \le 1.5$$
 
 So the CFL condition is met and $c_i < 1$.
 
