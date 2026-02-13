@@ -281,13 +281,13 @@ For the second-order term, we approximate the nested derivative $\frac{\partial}
 
 $$[\frac{\partial}{\partial x} (u^2 \frac{\partial u}{\partial x})]_i^n$$
 
-By evaluating the wave speed $u^2$ locally at grid point $i$, making $u^2$ act like a constant, and applying a second-order central difference to the spatial gradient, we obtain:
+By evaluating the wave speed $u^2$ locally at grid point $i$, making $u^2$ act like a constant, and applying a second-order central difference to the second partial derivative, we obtain:
 
 $$[ \frac{\partial}{\partial x} (u^2 \frac{\partial u}{\partial x})]_i^n \approx (u_i^n)^2 (\frac{\partial^2 u}{\partial x^2}) \approx (u_i^n)^2 \left( \frac{u_{i+1}^n - 2u_i^n + u_{i-1}^n}{\Delta x^2} \right)$$
 
 After substitution, the formula reduces to the quasilinear Lax–Wendroff form:
 
-$$u_i^{n+1} = u_i^n - \frac{u_i^n \Delta t}{2\Delta x}(u_{i+1}^n - u_{i-1}^n) + \frac{(u_i^n \Delta t)^2}{2\Delta x^2}(u_{i+1}^n - 2u_i^n + u_{i-1}^n)$$
+$$u_i^{n+1} = u_i^n - \frac{1}{2}(\frac{u_i^n \Delta t}{\Delta x})(u_{i+1}^n - u_{i-1}^n) + \frac{1}{2} (\frac{u_i^n \Delta t}{\Delta x})^2 (u_{i+1}^n - 2u_i^n + u_{i-1}^n)$$
 
 ## Implementation
 
@@ -295,7 +295,15 @@ In the code, we define the local Courant number:
 
 $$c_i = \frac{u_i^n \Delta t}{\Delta x}$$
 
-The final update used in the simulation becomes:
+In the program:
+
+* $\Delta x \approx 0.002$
+* $\Delta t = 10^{-4}$
+* $\text{max} |u| \le 1.5$
+
+So the CFL condition is met and $|c_i| < 1$
+
+The final formulation used in the simulation becomes:
 
 $$u_i^{n+1} = u_i^n - \frac{1}{2}c_i(u_{i+1}^n - u_{i-1}^n) + \frac{1}{2}c_i^2(u_{i+1}^n - 2u_i^n + u_{i-1}^n)$$
 
