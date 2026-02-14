@@ -8,15 +8,17 @@ This project explores the formation and propagation of shock waves derived from 
 
 
 
+
 # Table of Contents
-- Introduction
-- Model PDE
-- Weak Solutions
-- Numerical methods
-- Results
-- Reproducibility Instructions
-- Conclusion
-- Refrences and Acknowledgements
+
+- [Introduction](#introduction)
+- [Model PDE](#model-pde)
+- [Weak Solutions](#weak-solutions)
+- [Numerical Methods](#numerical-methods)
+- [Results](#results)
+- [Reproducibility Instructions](#reproducibility-instructions)
+- [Conclusion](#conclusion)
+- [References and Acknowledgements](#references-and-acknowledgements)
 
 # Introduction
 
@@ -387,8 +389,9 @@ To replicate the results, compile and execute "lax-wendroff.cc". This creates a 
 * Time Step ($\Delta t$): $10^{-4}$
 * Stability: $ \max \lvert c_i \rvert \approx 0.075$ (satisfying the CFL condition $ \lvert c_i \rvert \le 1$)
 
+# Conclusion
 
-
+# Refrences and Acknowledgements
 
 
 
