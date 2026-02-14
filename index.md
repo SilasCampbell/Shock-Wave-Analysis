@@ -337,7 +337,9 @@ This term utilizes a first-order central difference to approximate the slope of 
 
 This component approximates the second spatial derivative (the curvature) using a second-order central difference and acts as a stabilizer by providing numerical "smoothing". It detects sharp gradients that occur as $t \to t^*$ and applies a dissipative force to prevent numerical "explosions". By squaring the Courant number ($c_i^2$), the algorithm ensures that the smoothing effect is always positive and proportional to the local wave speed, which is a requirement for maintaining the stability of the shock front.
 
-## Results
+## Results and Discussion
+
+The primary objective of using the Lax-Wendroff method was to observe the formation and propogation of a shock wave in the inviscid Burgers' equation, and to observe the stability of the simulation. Included below, in $\text{Figure 1}$, is a model of the implicit solution's behavior before, at, and after the shock formation time. In $\text{Figure 2}$, we see the implimentation of the Lax-Wendroff method at similar time steps:
 
 <div align="center">
   <img src="lagrange_detailed_evolution.png" alt="Detailed Evolution" width="80%">
@@ -349,4 +351,4 @@ This component approximates the second spatial derivative (the curvature) using 
   <p><b>Figure 2:</b> Final numerical solution using the Lax–Wendroff method. The profile shows a stable shock front maintained by numerical smoothing after the shock formation time $t^* = 2$.</p>
 </div>
 
-
+As seen above in $\text{Figure 1}$, the implicit solution steepens as it approaches $t^* = 2$, and at the calculated shock formation time, the wave becomes infinitely steep. After $t^* = 2$, the wave overturns and the mapping between $x$ and $u$ becomes multivalued. In $\text{Figure 2}$, at the theoretical shock formation time, the wave appears extremely steep, and to the naked eye it may look infinitely steep, but due to the numerical smoothing used in the Lax-Wendroff method, the slope stays bounded. 
