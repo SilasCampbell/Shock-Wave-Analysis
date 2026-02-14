@@ -70,7 +70,7 @@ Integrating the velocity ODE, we find that $u$ remains constant along the charac
 
 $$u(x,t) = f(\xi)$$
 
-By integrating this consistency condition $\frac{du}{dt} = 0$, we establish the characteristic identity $u(x,t) = f(\xi)$. Substituting this characteristic identity into the path ODE and integrating, we get:
+Substituting this characteristic identity into the path ODE and integrating, we get:
 
 $$\frac{dx}{dt} = f(\xi)$$
 
@@ -83,13 +83,17 @@ From the equation above, we know $x(t)$ is linear.
 Starting with the formula $x(t) = f(\xi)t + \xi$ and subbing $f(\xi)$ for $u$, we can rearrange to solve for $\xi$:
 
 $$x(t) = f(\xi)t + \xi$$
+
 $$x(t) = ut + \xi$$
+
 $$\xi = x - ut$$
 
 Substituting this into the characteristic identity, we get the implicit solution of Burgers' Equation:
 
 $$u(x,t) = f(\xi)$$
+
 $$u(x,t) = f(x - ut)$$
+
 $$u(x,t) = 1 + \frac{1}{2}\sin(x - ut)$$
 
 Due to this being a transcendental equation, the equation cannot be simplified any further and must remain in this implicit form.
@@ -101,13 +105,18 @@ The implicit solution $u(x,t) = f(x - ut)$ remains valid as long as the mapping 
 To calculate the spatial gradient $u_x$, we differentiate the implicit solution of Burgers' Equation and rearrange to solve for $u_x$:
 
 $$u(x,t) = f(x - ut)$$
+
 $$u_x = f'(x - ut)(1-tu_x)$$
+
 $$u_x + tf'(x - ut)u_x = f'(x - ut)$$
+
 $$u_x = \frac{f'(x - ut)}{1 + tf'(x - ut)}$$
+
 $$u_x = \frac{f'(\xi)}{1 + tf'(\xi)}$$
+
 $$u_x = \frac{\frac{1}{2}\cos(\xi)}{1 + \frac{1}{2}t\cos(\xi)}$$
 
-At time $t^*$, when $1 + \frac{1}{2}t\cos(\xi) = 0$, $u_x$ becomes infinite and a shock forms. Solving for $t^*$, we first solve for $t$ and then find the infimum of $t$:
+At time $t^* $, when $1 + \frac{1}{2}t\cos(\xi) = 0$, $u_x$ becomes infinite and a shock forms. Solving for $t^*$, we first solve for $t$ and then find the infimum of $t$:
 
 $$t = \frac{-2}{\cos(\xi)}$$
 
@@ -118,13 +127,16 @@ $$t^* = 2$$
 
 At $t^* = 2$, the particle starting at $\xi = \pi$ becomes the first point in the wave to become vertical, and thus $t^* = 2$ is the Shock Formation Time.
 
-Solving for the Shock Location $x^*$, we substitute $t^* = 2$ and $\xi = \pi$ back into our path equation $x = \xi + f(\xi)t$:
+Solving for the Shock Location $x^* $, we substitute $t^* = 2$ and $\xi = \pi$ back into our path equation $x = \xi + f(\xi)t$:
 
 $$x^* = \pi + (1 + 0.5\sin(\pi))2$$
+
 $$x^* = \pi + 2$$
+
 $$x^* \approx 5.14$$
 
 The shock first appears at:
+
 $$(x,t) = (\pi + 2, 2)$$
 
 After $t^* = 2$, the implicit solution becomes multivalued, and weak solutions are needed to reconcile this.
@@ -133,7 +145,7 @@ After $t^* = 2$, the implicit solution becomes multivalued, and weak solutions a
 
 # Weak Solutions
 
-In Burgers' Equation, $u_t + u \cdot u_x = 0$, $u_x$ is only valid before $t^* = 2$. Because of this, the first thing we will do is put Burgers' Equation in its conservative form:
+In Burgers' Equation, $u_t + u \cdot u_x = 0$, $u_x$ is only valid before $t^* = 2$ for our initial conditions. Because of this, the first thing we will do is put Burgers' Equation in its conservative form:
 
 $$\frac{\partial u}{\partial t} + \frac{\partial}{\partial x}\left(\frac{1}{2} u^2\right) = 0$$
 
@@ -177,9 +189,17 @@ $$\iint_{\Omega} \nabla \cdot (v \mathbf{U}) \, dt \, dx = \oint_{\partial \Omeg
 
 Where $\mathbf{n}$ is the outward unit normal vector of the boundary and $ds$ is the infinitesimal arc length. Because $v(x,t)$ has compact support and is defined to be zero on the boundary $\partial \Omega$, this line integral equals zero:
 
-$$\iint_{\Omega} \nabla \cdot (v \mathbf{U}) \, dt \, dx = 0$$
-$$\implies \iint_{\Omega} \mathbf{U} \cdot \nabla v \, dt \, dx = 0$$
-$$\implies \iint_{\Omega} \left[u \frac {\partial v}{\partial t} + \frac{1}{2} u^2 \frac {\partial v}{\partial x}\right] dt \, dx = 0$$
+$$
+\begin{aligned}
+
+\iint_{\Omega} \nabla \cdot (v \mathbf{U}) \, dt \, dx = 0 \\
+
+\implies \iint_{\Omega} \mathbf{U} \cdot \nabla v \, dt \, dx = 0 \\
+
+\implies \iint_{\Omega} \left[u \frac {\partial v}{\partial t} + \frac{1}{2} u^2 \frac {\partial v}{\partial x}\right] dt \, dx = 0 \\
+
+\end{aligned}
+$$
 
 This final equation aligns with the definition of the weak solution to Burgers' Equation in Introduction to Partial Differential Equations by Olver (2016):
 
@@ -196,15 +216,34 @@ By shifting the requirement of differentiability from the solution $u$ to the te
 Having now derived a weak solution, we can apply this equation to determine the speed at which the shock propagates. We consider a domain $\Omega$ with a single jump discontinuity along a smooth curve $\mathbf{C}$ parameterized by $x = \sigma (t)$. This curve bisects our domain into two subdomains: $\Omega_+$ and $\Omega_-$. We define:
 
 $$u_+ = u \mid_{\Omega_+}, \text{ which lies above } \mathbf{C}$$
+
 $$u_- = u \mid_{\Omega_-}, \text{ which lies below } \mathbf{C}$$
 
 $u_+$ and $u_-$ are classical solutions on their respective domains. Now we partition the weak solution integral across two sub-domains:
 
-$$\iint_{\Omega_-} \left( u_- \frac{\partial v}{\partial t} + \frac{1}{2}u_-^2 \frac{\partial v}{\partial x} \right) dt \, dx + \iint_{\Omega_+} \left( u_+ \frac{\partial v}{\partial t} + \frac{1}{2}u_+^2 \frac{\partial v}{\partial x} \right) dt \, dx = 0$$
+$$
+\begin{aligned}
+
+\iint_{\Omega_-} \left( u_- \frac{\partial v}{\partial t} + \frac{1}{2}u_-^2 \frac{\partial v}{\partial x} \right) dt \, dx \\
+
+ + \iint_{\Omega_+} \left( u_+ \frac{\partial v}{\partial t} + \frac{1}{2}u_+^2 \frac{\partial v}{\partial x} \right) dt \, dx = 0\\
+
+\end{aligned}
+$$
+
+
 
 Using Green's Formula:
 
-$$0 = \oint_{\partial \Omega_-} (\mathbf{U_-} \cdot \mathbf{n_-}) v \, ds - \iint_{\Omega_-} \left( (u_-)_t + (u_-^2)_x \right) v \, dt \, dx + \oint_{\partial \Omega_+} (\mathbf{U_+} \cdot \mathbf{n_+}) v \, ds - \iint_{\Omega_+} \left( (u_+)_t + (u_+^2)_x \right) v \, dt \, dx$$
+$$
+\begin{aligned}
+
+0 = \oint_{\partial \Omega_-} (\mathbf{U_-} \cdot \mathbf{n_-}) v \, ds - \iint_{\Omega_-} \left( (u_-)_t + (u_-^2)_x \right) v \, dt \, dx \\
+
++ \oint_{\partial \Omega_+} (\mathbf{U_+} \cdot \mathbf{n_+}) v \, ds - \iint_{\Omega_+} \left( (u_+)_t + (u_+^2)_x \right) v \, dt \, dx \\
+
+\end{aligned}
+$$
 
 Because $u_-$ and $u_+$ are classical solutions, $u_t + (\frac{1}{2} u^2)_x = 0$ and the integral collapses to:
 
@@ -234,9 +273,10 @@ $$\left( \frac{1}{2}u_-^2 - \frac{1}{2}u_+^2 \right) - \dot{\sigma}(t)(u_- - u_+
 We now isolate the shock speed, $s = \dot{\sigma}(t)$:
 
 $$\dot{\sigma}(t)(u_- - u_+) = \frac{1}{2}u_-^2 - \frac{1}{2}u_+^2$$
+
 $$s = \frac{\frac{1}{2}u_-^2 - \frac{1}{2}u_+^2}{u_- - u_+}$$
 
-Using the difference of squares $(\frac{1}{2}(u_- - u_+)(u_- + u_+))$, the expression simplifies to the final jump condition for Burgers' Equation:
+Using the difference of squares $(\frac{1}{2}(u_- - u_+)(u_- + u_+))$, the expression simplifies to the Rankine-Hugoniot condition for Burgers' Equation:
 
 $$s = \frac{u_- + u_+}{2}$$
 
@@ -298,11 +338,27 @@ $$\left[\frac{\partial}{\partial x} \left(u^2 \frac{\partial u}{\partial x}\righ
 
 Applying a second-order central difference to the second partial derivative:
 
-$$\left[ \frac{\partial}{\partial x} \left(u^2 \frac{\partial u}{\partial x}\right)\right]_i^n \approx (u_i^n)^2 \left(\frac{\partial^2 u}{\partial x^2}\right) \approx (u_i^n)^2 \left( \frac{u_{i+1}^n - 2u_i^n + u_{i-1}^n}{\Delta x^2} \right)$$
+$$
+\begin{aligned}
+
+\left[ \frac{\partial}{\partial x} \left(u^2 \frac{\partial u}{\partial x}\right)\right]_i^n \approx (u_i^n)^2 \left(\frac{\partial^2 u}{\partial x^2}\right) \\
+
+\approx (u_i^n)^2 \left( \frac{u_{i+1}^n - 2u_i^n + u_{i-1}^n}{\Delta x^2} \right) \\
+
+\end{aligned}
+$$
 
 After substitution, the formula reduces to the Lax–Wendroff method used in the code:
 
-$$u_i^{n+1} = u_i^n - \frac{1}{2}\left(\frac{u_i^n \Delta t}{\Delta x}\right)(u_{i+1}^n - u_{i-1}^n) + \frac{1}{2} \left(\frac{u_i^n \Delta t}{\Delta x}\right)^2 (u_{i+1}^n - 2u_i^n + u_{i-1}^n)$$
+$$
+\begin{aligned}
+
+u_i^{n+1} = u_i^n - \frac{1}{2}\left(\frac{u_i^n \Delta t}{\Delta x}\right)(u_{i+1}^n - u_{i-1}^n) \\
+
++ \frac{1}{2} \left(\frac{u_i^n \Delta t}{\Delta x}\right)^2 (u_{i+1}^n - 2u_i^n + u_{i-1}^n) \\
+
+\end{aligned}
+$$
 
 ## Implementation
 
@@ -313,10 +369,12 @@ $$c_i = \frac{u_i^n \Delta t}{\Delta x}$$
 Where,
 
 $$\Delta x \approx 0.002$$
+
 $$\Delta t = 10^{-4}$$
+
 $$\max |u| = 1.5$$
 
-So the CFL condition is met and $c_i < 1$.
+So the CFL condition is met and $ \lvert c_i \rvert < 1$.
 
 The final formulation used in the simulation becomes:
 
@@ -382,7 +440,7 @@ To replicate the results, compile and execute "lax-wendroff.cc". This creates a 
 
 * Grid Resolution ($\Delta x$): $0.002$
 * Time Step ($\Delta t$): $10^{-4}$
-* Stability: $\max |c_i| \approx 0.075$ (satisfying the CFL condition $|c_i| \le 1$)
+* Stability: $\max \lvert c_i \rvert \approx 0.075$ (satisfying the CFL condition $ \lvert c_i \rvert \le 1$)
 
 <br>
 
