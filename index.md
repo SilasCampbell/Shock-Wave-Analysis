@@ -207,7 +207,7 @@ Because $v$ has compact support and equals $0$ on the outer boundary $\partial \
 
 $$0 = \oint_{\mathbf{C}} (\mathbf{U_-} \cdot \mathbf{n_-} + \mathbf{U_+} \cdot \mathbf{n_+}) v \ ds$$
 
-Since $\mathbf{n}$ represents the outward normal of $\mathbf{C}$, $\mathbf{n_-} = -\mathbf{n_+}$. Substituting this in, we get:
+Since $\mathbf{n}$ represents the outward unit normal of $\mathbf{C}$, $\mathbf{n_-} = -\mathbf{n_+}$. Substituting this in, we get:
 
 $$0 = \oint_{\mathbf{C}} (\mathbf{U_-} - \mathbf{U_+}) \cdot \mathbf{n_-} v \ ds$$
 
@@ -233,7 +233,7 @@ Using the difference of squares $(\frac{1}{2}(u_- - u_+)(u_- + u_+))$, the expre
 
 $$s = \frac{u_- + u_+}{2}$$
 
-This result, the Rankine-Hugoniot condition, shows that the shock wave propogates at the average velocity of the state immediately ahead of and behind the discontinuity.
+This result, the Rankine-Hugoniot condition, shows that the shock wave propagates at the average velocity of the state immediately ahead of and behind the discontinuity.
 
 # Numerical Methods
 
@@ -331,15 +331,15 @@ Defined as $c_i = \frac{u_i^n \Delta t}{\Delta x}$, this number determines how m
   
 3. The Advection Term ($-\frac{1}{2}c_i(u_{i+1}^n - u_{i-1}^n)$)
 
-This term utilizes a first-order central difference to approximate the slope of the wave at grid points $i$. It represents the primary "physics" of the PDE, responsible for moving the wave forward in space.
+This term utilizes a second-order central difference to approximate the slope of the wave at grid points $i$. It represents the primary "physics" of the PDE, responsible for moving the wave forward in space.
 
 4. The Dissipation Term ($+\frac{1}{2}c_i^2(u_{i+1}^n - 2u_i^n + u_{i-1}^n)$)
 
-This component approximates the second spatial derivative (the curvature) using a second-order central difference and acts as a stabilizer by providing numerical "smoothing". It detects sharp gradients that occur as $t \to t^*$ and applies a dissipative force to prevent numerical "explosions". By squaring the Courant number ($c_i^2$), the algorithm ensures that the smoothing effect is always positive and proportional to the local wave speed, which is a requirement for maintaining the stability of the shock front.
+This component approximates the second spatial derivative (the curvature) using a second-order central difference and acts as a stabilizer by providing numerical "smoothing". It detects sharp gradients that occur as $t \to t^*$ and applies a dissipative force to prevent numerical "explosions". By squaring the Courant number ($c_i^2$), the algorithm ensures that the smoothing effect is always positive and proportional to the square of the local wave speed, which is a requirement for maintaining the stability of the shock front.
 
 ## Results and Discussion
 
-The primary objective of using the Lax-Wendroff method was to observe the formation and propogation of a shock wave in the inviscid Burgers' equation, and to observe the stability of the simulation. Included below, in $\text{Figure 1}$, is a model of the implicit solution's behavior before, at, and after the shock formation time. In $\text{Figure 2}$, we see the implimentation of the Lax-Wendroff method at similar time steps:
+The primary objective of using the Lax-Wendroff method was to observe the formation and propagation of a shock wave in the inviscid Burgers' equation, and to observe the stability of the simulation. Included below, in $\text{Figure 1}$, is a model of the implicit solution's behavior before, at, and after the shock formation time. In $\text{Figure 2}$, we see the implementation of the Lax-Wendroff method at similar time steps:
 
 <div align="center">
   <img src="lagrange_detailed_evolution.png" alt="Detailed Evolution" width="80%">
@@ -351,4 +351,40 @@ The primary objective of using the Lax-Wendroff method was to observe the format
   <p><b>Figure 2:</b> Final numerical solution using the Lax–Wendroff method. The profile shows a stable shock front maintained by numerical smoothing after the shock formation time $t^* = 2$.</p>
 </div>
 
-As seen above in $\text{Figure 1}$, the implicit solution steepens as it approaches $t^* = 2$, and at the calculated shock formation time, the wave becomes infinitely steep. After $t^* = 2$, the wave overturns and the mapping between $x$ and $u$ becomes multivalued. In $\text{Figure 2}$, at the theoretical shock formation time, the wave appears extremely steep, and to the naked eye it may look infinitely steep, but due to the numerical smoothing used in the Lax-Wendroff method, the slope stays bounded. 
+As seen above in $\text{Figure 1}$, the implicit solution, which evolves from the lagrangian perspective of following the path of individual particles, steepens as it approaches $t^* = 2$. At the calculated shock formation time, the wave becomes infinitely steep and proceeds to overturn, forcing the mapping between $x$ and $u$ to become multivalued. In $\text{Figure 2}$, using the Lax-Wendroff method, the evolution of the wave follows the Eulerian perspective of observing flow from a fixed point on the grid, rather than following a particle. At the theoretical shock formation time, the wave appears extremely steep, and to the naked eye it may look infinitely steep, but due to the numerical smoothing used in the Lax-Wendroff method, the slope stays bounded. 
+
+When compiling the Lax-Wendroff code, the shock detection implemented in the code, which is searching for the point in which the wave can't get steeper, outputs a detection time after $t^* = 2$. This happens because of the numerical smoothing term in the Lax-Wendroff method. Although not perfect, this method demonstrates how shock waves propagate very accurately. The research and implementation of better numerical methods will be left for further studies.
+
+## Reproducibility
+
+To replicate the numerical results presented in this analysis, the simulation was implemented in C++ and executed within the Windows Subsystem for Linux (WSL) environment using the GNU Compiler Collection (GCC). The GitHub repository containing all of the necessary source code can be accessed with:
+
+[Shock-Wave-Analysis Repository](https://github.com/SilasCampbell/Shock-Wave-Analysis)
+
+### Implicit model
+
+To replicate the characteristic evolution shown in $\text{Figure 1}$, compile and execute "lagrangian_characteristic_tracker.cc". This script calculates the paths $x(t) = \xi + f(\xi)t$ for a range of initial positions $\xi \in [0, 2\pi]$, and creates a .csv file containing the data for $t, x, \text{and} u$ over $20,000$ time steps. To make a plot with this data, you can use the Python script "lagrange_plot.py", which can also be found in the repository, or you can create your own plot.
+
+### Lax-Wendroff method
+
+To replicate the results, compile and execute "lax-wendroff.cc". This creates a .csv file containing the data for $t, x, \text{and} u$ over $20,000$ time steps. To make a plot with this data, you can use the Python script "lax_wendroff_plot.py", which can also be found in the repository, or you can create your own plot. In the lax-wendroff.cc file, these parameters are hard coded to ensure the stability of the simulation:
+
+* Grid Resolution ($\Delta x$): $0.002$
+* Time Step ($\Delta t$): $10^{-4}$
+* Stability: $\max |c_i| \approx 0.075$ (satisfying the CFL condition $|c_i| \le 1$)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
