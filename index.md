@@ -4,9 +4,9 @@ layout: single
 mathjax: true
 ---
 
-This project explores the formation and propagation of shock waves derived from Burgers' Equation (Inviscid). We start with a singularity analysis using the Method of Characteristics to calculate the theoretical shock formation time. At this time, the analytical solution to Burgers' Equation becomes multivalued. To reconcile this, we transition to weak solutions, utilizing an integral conservation form that remains valid across discontinuities. With this formulation, we derive the Rankine-Hugoniot condition to determine the velocity of the shock front. Finally, we shift to numerical methods by starting with a derivation of the Lax-Wendroff method. To finish this analysis, the Lax-Wendroff method is implemented in C++ and plotted in Python, which demonstrates how factors like numerical dissipation create a stable simulation that models how shocks propagate while respecting physical requirements of mass and momentum conservation.
+This project explores the formation and propagation of shock waves derived from Burgers' Equation (Inviscid). We start with a singularity analysis using the Method of Characteristics to calculate the theoretical shock formation time. At this time, the analytical solution to Burgers' Equation becomes multivalued. To reconcile this, we transition to weak solutions, utilizing an integral conservation form that remains valid across discontinuities. With this formulation, we derive the Rankine-Hugoniot condition to determine the velocity of the shock front. Finally, we shift to numerical methods by starting with a derivation of the Lax-Wendroff method. To finish this analysis, the Lax-Wendroff method is implemented in C++ and plotted in Python, which demonstrates how factors like numerical dissipation create a stable simulation that models how shocks propagate while respecting the physical requirements of mass and momentum conservation.
 
-
+<br>
 
 
 # Table of Contents
@@ -20,11 +20,21 @@ This project explores the formation and propagation of shock waves derived from 
 - [Conclusion](#conclusion)
 - [References and Acknowledgements](#references-and-acknowledgements)
 
+<br>
+
 # Introduction
 
+The inviscid Burgers' Equation serves as a fundamental partial differential equation in the study of nonlinear conservation laws and fluid dynamics. It provides a framework for analyzing how nonlinear advection without viscosity leads to the formation of a discontinuity, or shock, from smooth initial conditions.
 
+### Motivation
 
+The transition from smooth flow to a disconinuous shock is a critical phenomenon in real-world systems ranging from gas dynamics and acoustic waves to traffic flow modeling. By predicting the point in time and space when a shock forms, we can engineer stable systems that can withstand shock-induced stresses. 
 
+### Methodology
+
+Because classical analytical solutions to Burgers' Equation become multivalued after the shock formation time, we introduce weak solutions and an integral conservation form to create an equation that still operates across discontinuities. To model this, high-order numerical schemes like the Lax-Wendroff method are used to provide a link between theoretical partial differential equations and computational physics.
+
+<br>
 
 # Model PDE
 
@@ -133,6 +143,8 @@ The shock first appears at:
 $$(x,t) = (\pi + 2,2)$$
 
 After $t^* = 2$, the implicit soltution becomes multivalued, and weak solutions are needed to reconcile this.
+
+<br>
 
 # Weak Solutions
 
@@ -250,6 +262,8 @@ $$s = \frac{u_- + u_+}{2}$$
 
 This result, the Rankine-Hugoniot condition, shows that the shock wave propagates at the average velocity of the state immediately ahead of and behind the discontinuity.
 
+<br>
+
 # Numerical Methods
 
 To simulate the evolution of the wave past the shock-formation time, we implement the Lax–Wendroff scheme, a second-order accurate finite difference method for nonlinear conservation laws. We begin from the conservative form of Burgers’ equation: $u_t + \left( \frac{1}{2}u^2 \right)_x = 0$, which can be written in general conservation form as:
@@ -353,6 +367,8 @@ This term utilizes a second-order central difference to approximate the slope of
 
 This component approximates the second spatial derivative (the curvature) using a second-order central difference and acts as a stabilizer by providing numerical "smoothing". It detects sharp gradients that occur as $t \to t^*$ and applies a dissipative force to prevent numerical "explosions". By squaring the Courant number ($c_i^2$), the algorithm ensures that the smoothing effect is always positive and proportional to the square of the local wave speed, which is a requirement for maintaining the stability of the shock front.
 
+<br>
+
 # Results
 
 The primary objective of using the Lax-Wendroff method was to observe the formation and propagation of a shock wave in the inviscid Burgers' equation, and to observe the stability of the simulation. Included below, in $\text{Figure 1}$, is a model of the implicit solution's behavior before, at, and after the shock formation time. In $\text{Figure 2}$, we see the implementation of the Lax-Wendroff method at similar time steps:
@@ -370,6 +386,8 @@ The primary objective of using the Lax-Wendroff method was to observe the format
 As seen above in $\text{Figure 1}$, the implicit solution, which evolves from the lagrangian perspective of following the path of individual particles, steepens as it approaches $t^* = 2$. At the calculated shock formation time, the wave becomes infinitely steep and proceeds to overturn, forcing the mapping between $x$ and $u$ to become multivalued. In $\text{Figure 2}$, using the Lax-Wendroff method, the evolution of the wave follows the Eulerian perspective of observing flow from a fixed point on the grid, rather than following a particle. At the theoretical shock formation time, the wave appears extremely steep, and to the naked eye it may look infinitely steep, but due to the numerical smoothing used in the Lax-Wendroff method, the slope stays bounded. 
 
 When compiling the Lax-Wendroff code, the shock detection implemented in the code, which is searching for the point in which the wave can't get steeper, outputs a detection time after $t^* = 2$. This happens because of the numerical smoothing term in the Lax-Wendroff method. Although not perfect, this method demonstrates how shock waves propagate very accurately. The research and implementation of better numerical methods will be left for further studies.
+
+<br> 
 
 # Reproducibility Instructions
 
@@ -389,7 +407,13 @@ To replicate the results, compile and execute "lax-wendroff.cc". This creates a 
 * Time Step ($\Delta t$): $10^{-4}$
 * Stability: $ \max \lvert c_i \rvert \approx 0.075$ (satisfying the CFL condition $ \lvert c_i \rvert \le 1$)
 
+<br>
+
 # Conclusion
+
+
+
+<br>
 
 # Refrences and Acknowledgements
 
