@@ -385,7 +385,7 @@ To replicate the results, compile and execute "lax-wendroff.cc". This creates a 
 
 * Grid Resolution ($\Delta x$): $0.002$
 * Time Step ($\Delta t$): $10^{-4}$
-* Stability: $\max \lvert c_i \rvert \approx 0.075$ (satisfying the CFL condition $|c_i| \le 1$)
+* Stability: $ \max \lvert c_i \rvert \approx 0.075$ (satisfying the CFL condition $ \lvert c_i \rvert \le 1$)
 
 
 
