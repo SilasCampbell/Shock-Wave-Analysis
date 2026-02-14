@@ -204,7 +204,8 @@ $$u_- = u \mid_{\Omega_-}, \text{ which lies below } \mathbf{C}$$
 
 $u_+ \text{ and } u_-$ are classical solutions on their respective domains. Now we partition the weak solution integral across two sub-domains:
 
-$$\iint_{\Omega_-} \left( u_- \frac{\partial v}{\partial t} + \frac{1}{2}u_-^2 \frac{\partial v}{\partial x} \right) dt \ dx + \iint_{\Omega_+} \left( u_+ \frac{\partial v}{\partial t} + \frac{1}{2}u_+^2 \frac{\partial v}{\partial x} \right) dt \ dx = 0$$
+$$\iint_{\Omega_-} \left( u_- \frac{\partial v}{\partial t} + \frac{1}{2}u_-^2 \frac{\partial v}{\partial x} \right) dt \ dx $$
+$$+ \iint_{\Omega_+} \left( u_+ \frac{\partial v}{\partial t} + \frac{1}{2}u_+^2 \frac{\partial v}{\partial x} \right) dt \ dx = 0$$
 
 Using Green's Formula:
 
@@ -305,7 +306,8 @@ $$[ \frac{\partial}{\partial x} (u^2 \frac{\partial u}{\partial x})]_i^n \approx
 
 After substitution, the formula reduces to the Lax–Wendroff method used in the code:
 
-$$u_i^{n+1} = u_i^n - \frac{1}{2}(\frac{u_i^n \Delta t}{\Delta x})(u_{i+1}^n - u_{i-1}^n) + \frac{1}{2} (\frac{u_i^n \Delta t}{\Delta x})^2 (u_{i+1}^n - 2u_i^n + u_{i-1}^n)$$
+$$u_i^{n+1} = u_i^n - \frac{1}{2}(\frac{u_i^n \Delta t}{\Delta x})(u_{i+1}^n - u_{i-1}^n)$$
+$$+ \frac{1}{2} (\frac{u_i^n \Delta t}{\Delta x})^2 (u_{i+1}^n - 2u_i^n + u_{i-1}^n)$$
 
 ## Implementation
 
@@ -349,7 +351,7 @@ This term utilizes a second-order central difference to approximate the slope of
 
 This component approximates the second spatial derivative (the curvature) using a second-order central difference and acts as a stabilizer by providing numerical "smoothing". It detects sharp gradients that occur as $t \to t^*$ and applies a dissipative force to prevent numerical "explosions". By squaring the Courant number ($c_i^2$), the algorithm ensures that the smoothing effect is always positive and proportional to the square of the local wave speed, which is a requirement for maintaining the stability of the shock front.
 
-## Results and Discussion
+# Results
 
 The primary objective of using the Lax-Wendroff method was to observe the formation and propagation of a shock wave in the inviscid Burgers' equation, and to observe the stability of the simulation. Included below, in $\text{Figure 1}$, is a model of the implicit solution's behavior before, at, and after the shock formation time. In $\text{Figure 2}$, we see the implementation of the Lax-Wendroff method at similar time steps:
 
@@ -367,23 +369,23 @@ As seen above in $\text{Figure 1}$, the implicit solution, which evolves from th
 
 When compiling the Lax-Wendroff code, the shock detection implemented in the code, which is searching for the point in which the wave can't get steeper, outputs a detection time after $t^* = 2$. This happens because of the numerical smoothing term in the Lax-Wendroff method. Although not perfect, this method demonstrates how shock waves propagate very accurately. The research and implementation of better numerical methods will be left for further studies.
 
-## Reproducibility
+# Reproducibility Instructions
 
 To replicate the numerical results presented in this analysis, the simulation was implemented in C++ and executed within the Windows Subsystem for Linux (WSL) environment using the GNU Compiler Collection (GCC). The GitHub repository containing all of the necessary source code can be accessed with:
 
 [Shock-Wave-Analysis Repository](https://github.com/SilasCampbell/Shock-Wave-Analysis)
 
-### Implicit model
+## Implicit model
 
 To replicate the characteristic evolution shown in $\text{Figure 1}$, compile and execute "lagrangian_characteristic_tracker.cc". This script calculates the paths $x(t) = \xi + f(\xi)t$ for a range of initial positions $\xi \in [0, 2\pi]$, and creates a .csv file containing the data for $t, x, \text{and} u$ over $20,000$ time steps. To make a plot with this data, you can use the Python script "lagrange_plot.py", which can also be found in the repository, or you can create your own plot.
 
-### Lax-Wendroff method
+## Lax-Wendroff method
 
 To replicate the results, compile and execute "lax-wendroff.cc". This creates a .csv file containing the data for $t, x, \text{and} u$ over $20,000$ time steps. To make a plot with this data, you can use the Python script "lax_wendroff_plot.py", which can also be found in the repository, or you can create your own plot. In the lax-wendroff.cc file, these parameters are hard coded to ensure the stability of the simulation:
 
 * Grid Resolution ($\Delta x$): $0.002$
 * Time Step ($\Delta t$): $10^{-4}$
-* Stability: $\max |c_i| \approx 0.075$ (satisfying the CFL condition $|c_i| \le 1$)
+* Stability: $\max \lvert c_i \rvert \approx 0.075$ (satisfying the CFL condition $|c_i| \le 1$)
 
 
 
