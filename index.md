@@ -6,9 +6,10 @@ author_profile: true
 mathjax: true
 ---
 
+<br>
+
 Author: Silas Campbell
 
-<br>
 <br>
 
 # Abstract
