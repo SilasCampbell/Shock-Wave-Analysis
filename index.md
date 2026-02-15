@@ -6,6 +6,12 @@ author_profile: true
 mathjax: true
 ---
 
+### Author: Silas Campbell
+
+<br>
+<br>
+<br>
+
 # Abstract
 
 This project explores the formation and propagation of shock waves derived from Burgers' Equation (Inviscid). We start with a singularity analysis using the Method of Characteristics to calculate the theoretical shock formation time. At this time, the analytical solution to Burgers' Equation becomes multivalued. To reconcile this, we transition to weak solutions, utilizing an integral conservation form that remains valid across discontinuities. With this formulation, we derive the Rankine-Hugoniot condition to determine the velocity of the shock front. Finally, we shift to numerical methods by starting with a derivation of the Lax-Wendroff method. To finish this analysis, the Lax-Wendroff method is implemented in C++ and plotted in Python, which demonstrates how factors like numerical dissipation create a stable simulation that models how shocks propagate while respecting the physical requirements of mass and momentum conservation.
