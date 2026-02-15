@@ -6,9 +6,8 @@ author_profile: true
 mathjax: true
 ---
 
-### Author: Silas Campbell
+Author: Silas Campbell
 
-<br>
 <br>
 <br>
 
