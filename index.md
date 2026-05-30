@@ -468,5 +468,5 @@ This shock wave analysis highlights the difficulty in fluid dynamics of transiti
 
 3. LeVeque, R. J. (1992). Numerical Methods for Conservation Laws. Birkhäuser Basel.
 
-Thank you to C. Rhys Campbell for assisting in setting up the website, and thank you to Dr. Todd Young for reviewing the Model PDE and Weak Solutions sections with me.
+Thank you to C. Rhys Campbell for assisting in setting up the website, and thank you to Dr. Todd Young for discussing the Model PDE and Weak Solutions sections with me.
 
